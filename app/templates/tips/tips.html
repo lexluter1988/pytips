@@ -1,0 +1,8 @@
+{% extends "main/base.html" %}
+
+{% block app_content %}
+    <h2>Did you know that</h2>
+    <code>{{  tip }}</code>
+    <br>
+    <a href="{{ url_for('tips.get_tip') }}">{{ _('Next Tip?') }}</a>
+{% endblock %}

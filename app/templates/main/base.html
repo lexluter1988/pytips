@@ -1,0 +1,42 @@
+{% extends 'bootstrap/base.html' %}
+
+<html>
+    <head>
+        {% block scripts %}
+        {{ moment.include_jquery() }}
+        {{ moment.include_moment() }}
+        {{ moment.lang(g.locale) }}
+        {% endblock %}
+        {% block title %}
+            {% if title %}{{ title }} - Pytips{% else %}Welcome to Pytips{% endif %}
+        {% endblock %}
+    </head>
+    <body>
+        <div>
+           {% block navbar %}
+                <nav class="navbar navbar-default">
+                    <a href="{{ url_for('main.index') }}">{{ _('Home') }}</a>
+                    {% if current_user.is_anonymous %}
+                    <a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
+                    {% else %}
+                    <a href="{{ url_for('main.user', username=current_user.username) }}">{{ _('Profile') }}</a>
+                    <a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
+                    {% endif %}
+                </nav>
+            {% endblock %}
+        </div>
+        <hr>
+        {% block content %}
+            <div class="container">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% block app_content %}{% endblock %}
+            </div>
+        {% endblock %}
+    </body>
+</html>

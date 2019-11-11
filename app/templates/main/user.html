@@ -1,0 +1,11 @@
+{% extends "main/base.html" %}
+
+{% block app_content %}
+    {% if user == current_user %}
+    <h1>{{ _('User:') }} {{ user.username }}</h1>
+    <h2>{{ _('About:') }} {{ user.about_me }}</h2>
+    <p>{{ _('Last seen on:') }} {{ moment(user.last_seen).format('LLL') }}</p>
+    <p><a href="{{ url_for('main.edit_profile') }}">{{ _('Edit your profile') }}</a></p>
+    {% endif %}
+    <hr>
+{% endblock %}

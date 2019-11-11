@@ -1,0 +1,6 @@
+*.pyc
+env
+app.db
+*idea
+migrations
+logs
