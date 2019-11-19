@@ -63,9 +63,9 @@ def create_app(config_class=Config):
                 fromaddr='no-reply@' + app.config['MAIL_SERVER'],
                 toaddrs=app.config['ADMINS'], subject='Pytips Failure',
                 credentials=auth, secure=secure)
-            mail_handler.setLevel(logging.ERROR)
-            app.logger.addHandler(mail_handler)
+                mail_handler.setLevel(logging.ERROR)
 
+                app.logger.addHandler(mail_handler)
         if not os.path.exists('logs'):
             os.mkdir('logs')
         file_handler = RotatingFileHandler('logs/pytips.log', maxBytes=10240,

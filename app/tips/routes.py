@@ -8,7 +8,6 @@ from app import db
 from app.models import Tip
 from app.tips import bp
 from app.tips.forms import TipForm
-from app.utils.tips_utils import get_random_tip
 
 
 @bp.route('/tips', methods=['GET'])

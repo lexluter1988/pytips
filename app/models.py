@@ -48,16 +48,37 @@ class User(UserMixin, db.Model):
         return User.query.get(id)
 
 
+hashtags = db.Table('hashtags_tips',
+                    db.Column('hashtags_id', db.Integer, db.ForeignKey('hashtags.id'), primary_key=True),
+                    db.Column('tips_id', db.Integer, db.ForeignKey('tips.id'), primary_key=True))
+
+
 class Tip(db.Model):
     __tablename__ = 'tips'
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(256))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    hashtags = db.relationship('HashTag', secondary=hashtags, lazy='subquery', backref=db.backref('tips', lazy=True))
 
     def __repr__(self):
         return self.body
 
-#
-# class HashTag(db.Model):
-#     pass
+
+class HashTag(db.Model):
+    __tablename__ = 'hashtags'
+    id = db.Column(db.Integer, primary_key=True)
+    tag = db.Column(db.String(64))
+
+    def __repr__(self):
+        return self.tag
+
+#examples
+# h = Tip.query.join(hashtags).filter_by(tips_id=10).all()
+# return Tip
+
+#>>> h = HashTag.query.join(hashtags).filter_by(tips_id=14).all()
+#>>> h
+#[]
+# return HashTag by tip
+#>>> h = HashTag.query.join(hashtags).all()
