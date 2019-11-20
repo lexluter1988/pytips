@@ -74,7 +74,7 @@ class HashTag(db.Model):
         return self.tag
 
 #examples
-# h = Tip.query.join(hashtags).filter_by(tips_id=10).all()
+# h = Tip.query.join(hashtags).filter_by(tips_id=14).all()
 # return Tip
 
 #>>> h = HashTag.query.join(hashtags).filter_by(tips_id=14).all()
