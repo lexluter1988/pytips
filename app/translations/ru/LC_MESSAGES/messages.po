@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-11-10 09:51+0700\n"
-"PO-Revision-Date: 2019-11-10 09:51+0700\n"
+"POT-Creation-Date: 2019-11-21 17:09+0700\n"
+"PO-Revision-Date: 2019-11-21 17:09+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Remember Me"
 msgstr ""
 
-#: app/auth/forms.py:14 app/templates/auth/login.html:4
+#: app/auth/forms.py:14 app/templates/auth/login.html:5
 msgid "Sign In"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Repeat Password"
 msgstr ""
 
-#: app/auth/forms.py:23 app/templates/auth/register.html:4
+#: app/auth/forms.py:23 app/templates/auth/register.html:5
 msgid "Register"
 msgstr ""
 
@@ -87,27 +87,27 @@ msgstr ""
 msgid "About me"
 msgstr ""
 
-#: app/main/forms.py:13
+#: app/main/forms.py:13 app/tips/forms.py:10
 msgid "Submit"
 msgstr ""
 
-#: app/main/routes.py:54
+#: app/main/routes.py:53
 msgid "Your changes have been saved."
 msgstr ""
 
-#: app/templates/auth/login.html:5
+#: app/templates/auth/login.html:6
 msgid "New User?"
 msgstr ""
 
-#: app/templates/auth/login.html:5
+#: app/templates/auth/login.html:6
 msgid "Click to Register!"
 msgstr ""
 
-#: app/templates/auth/login.html:26
+#: app/templates/auth/login.html:14
 msgid "Forgot Your Password?"
 msgstr ""
 
-#: app/templates/auth/login.html:27
+#: app/templates/auth/login.html:15
 msgid "Click to Reset It"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Reset Your Password"
 msgstr ""
 
-#: app/templates/auth/reset_password_request.html:4
+#: app/templates/auth/reset_password_request.html:5
 msgid "Reset Password"
 msgstr ""
 
@@ -161,23 +161,23 @@ msgstr ""
 msgid "The administrator has been notified. Sorry for the inconvenience!"
 msgstr ""
 
-#: app/templates/main/base.html:17
+#: app/templates/main/base.html:18
 msgid "Home"
 msgstr ""
 
-#: app/templates/main/base.html:19
+#: app/templates/main/base.html:20
 msgid "Login"
 msgstr ""
 
-#: app/templates/main/base.html:21
+#: app/templates/main/base.html:22
 msgid "Profile"
 msgstr ""
 
-#: app/templates/main/base.html:22
+#: app/templates/main/base.html:23
 msgid "Logout"
 msgstr ""
 
-#: app/templates/main/edit_profile.html:4
+#: app/templates/main/edit_profile.html:5
 msgid "Edit Profile"
 msgstr ""
 
@@ -200,5 +200,33 @@ msgstr ""
 
 #: app/templates/main/user.html:8
 msgid "Edit your profile"
+msgstr ""
+
+#: app/templates/tips/tips.html:7
+msgid "Next Tip?"
+msgstr ""
+
+#: app/templates/tips/tips.html:8
+msgid "Create New Tip?"
+msgstr ""
+
+#: app/templates/tips/tips.html:9
+msgid "Edit This Tip?"
+msgstr ""
+
+#: app/tips/forms.py:8
+msgid "Tip content"
+msgstr ""
+
+#: app/tips/forms.py:9
+msgid "Hashtags"
+msgstr ""
+
+#: app/tips/routes.py:39
+msgid "Your tip is now live!"
+msgstr ""
+
+#: app/tips/routes.py:52
+msgid "Your tip has been changed!"
 msgstr ""
 
