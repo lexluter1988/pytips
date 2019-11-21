@@ -43,7 +43,7 @@ class User(UserMixin, db.Model):
             id = jwt.decode(token, current_app.config['SECRET_KEY'],
                             algorithms=['HS256'])['reset_password']
         except Exception as e:
-            current_app.logger.error('Error')
+            current_app.logger.error('Error {}'.format(e))
             return
         return User.query.get(id)
 
@@ -82,3 +82,10 @@ class HashTag(db.Model):
 #[]
 # return HashTag by tip
 #>>> h = HashTag.query.join(hashtags).all()
+
+# h = HashTag.query.filter(HashTag.tag=='games').first()
+# or
+# h = db.session.query(HashTag).filter(HashTag.tag == 'games').first()
+
+# get tips by hashtag id
+# tips = Tip.query.join(hashtags).filter_by(hashtags_id=4).all()

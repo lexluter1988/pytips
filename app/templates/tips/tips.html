@@ -2,7 +2,13 @@
 
 {% block app_content %}
     <h2>Did you know that</h2>
-    <code>{{  tip }}</code>
+    <code>{{ tip }}</code>
+    <br>
+    {% if tip.hashtags %}
+        {% for hashtag in tip.hashtags %}
+            <a href="{{ url_for('tips.get_tips_by_hashtag', hashtag_id=hashtag.id) }}">{{ hashtag.tag }}</a>
+        {% endfor %}
+    {% endif %}
     <br>
     <a href="{{ url_for('tips.get_tip') }}">{{ _('Next Tip?') }}</a>
     <a href="{{ url_for('tips.create_tip') }}">{{ _('Create New Tip?') }}</a>
