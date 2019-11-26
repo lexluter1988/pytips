@@ -1,16 +1,26 @@
 {% extends "main/base.html" %}
-
 {% block app_content %}
-    <h2>Did you know that</h2>
-    <code>{{ tip }}</code>
-    <br>
+    <div id="tips">
+        <h2>Did you know that</h2>
+        <code>{{ tip }}</code>
+    </div>
+    <div id="hashtags">
     {% if tip.hashtags %}
         {% for hashtag in tip.hashtags %}
             <a href="{{ url_for('tips.get_tips_by_hashtag', hashtag_id=hashtag.id) }}">{{ hashtag.tag }}</a>
         {% endfor %}
     {% endif %}
+    </div>
     <br>
-    <a href="{{ url_for('tips.get_tip') }}">{{ _('Next Tip?') }}</a>
-    <a href="{{ url_for('tips.create_tip') }}">{{ _('Create New Tip?') }}</a>
-    <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}">{{ _('Edit This Tip?') }}</a>
+    <div id="navigation">
+        <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+        <a href="{{ url_for('tips.create_tip') }}"><i class="fa fa-file fa-2x"></i></a>
+        <a href="{{ url_for('tips.get_tip') }}"><i class="fa fa-arrow-circle-right fa-2x"></i></a>
+    </div>
 {% endblock %}
+
+
+{#for tooltips#}
+{#{{ _('Next Tip?') }}#}
+{#{{ _('Create New Tip?') }}#}
+{#{{ _('Edit This Tip?') }}#}
