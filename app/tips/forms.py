@@ -6,5 +6,5 @@ from wtforms.validators import DataRequired
 
 class TipForm(FlaskForm):
     tip = TextAreaField(_l('Tip content'), validators=[DataRequired()])
-    hashtags = TextAreaField(_l('Hashtags'), validators=[DataRequired()])
+    hashtags = TextAreaField(_l('Hashtags'))
     submit = SubmitField(_l('Submit'))

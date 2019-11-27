@@ -14,8 +14,11 @@ from app.tips.forms import TipForm
 @bp.route('/tips', methods=['GET'])
 def get_tip():
     tips = Tip.query.all()
-    rand = random.randint(0, len(tips) - 1)
-    return render_template('tips/tips.html', title='Tip of a day', tip=tips[rand])
+    tip_of_the_day = 'No tips in database'
+    if tips:
+        rand = random.randint(0, len(tips) - 1)
+        tip_of_the_day = tips[rand]
+    return render_template('tips/tips.html', title='Tip of a day', tip=tip_of_the_day)
 
 
 @bp.route('/tips/new', methods=['GET', 'POST'])
@@ -59,6 +62,13 @@ def edit_tip(tip_id):
         for hashtag in hashtags_diff:
             tag = HashTag.query.filter(HashTag.tag == hashtag).first()
             tip.hashtags.remove(tag)
+        # clean up unused hashtags
+        # TODO: implement via periodic task
+        hashtags_all = HashTag.query.all()
+        for hashtag in hashtags_all:
+            tips = Tip.query.join(hashtags).filter_by(hashtags_id=hashtag.id).all()
+            if not tips:
+                db.session.delete(hashtag)
         db.session.commit()
         flash(_('Your tip has been changed!'))
         return redirect(url_for('tips.get_tip'))
