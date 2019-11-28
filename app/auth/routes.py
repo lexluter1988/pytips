@@ -6,7 +6,7 @@ from werkzeug.urls import url_parse
 
 from app import db
 from app.auth import bp
-from app.auth.email import send_password_reset_email
+from app.auth.email import send_password_reset_email, send_registration_confirm_email
 from app.auth.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm
 from app.models import User
 
@@ -36,7 +36,7 @@ def logout():
 
 
 @bp.route('/register', methods=['GET', 'POST'])
-def register():
+def register_request():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = RegistrationForm()
@@ -45,9 +45,25 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash(_('Congratulations, you are now a registered user!'))
+        send_registration_confirm_email(user)
+        flash(_('Congratulations, you are now a registered user! '
+                'But not activated yet. Check your email for confirmation link'))
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)
+
+
+@bp.route('/register/<token>', methods=['GET', 'POST'])
+def register(token):
+    if current_user.is_authenticated and current_user.confirmed:
+        return redirect(url_for('main.index'))
+    user = User.verify_token(token, 'registration_confirm')
+    if not user:
+        return redirect(url_for('main.index'))
+    user.confirmed = True
+    db.session.add(user)
+    db.session.commit()
+    flash(_('Your account has been activated'))
+    return redirect(url_for('main.index'))
 
 
 @bp.route('/reset_password_request', methods=['GET', 'POST'])
@@ -71,7 +87,7 @@ def reset_password_request():
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-    user = User.verify_reset_password_token(token)
+    user = User.verify_token(token, 'reset_password')
     if not user:
         return redirect(url_for('main.index'))
     form = ResetPasswordForm()

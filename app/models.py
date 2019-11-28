@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
+    confirmed = db.Column(db.Boolean, default=False)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     about_me = db.Column(db.String(140))
@@ -32,16 +33,16 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def get_reset_password_token(self, expires_in=600):
+    def get_token(self, expires_in=600, token_type='reset_password'):
         return jwt.encode(
-            {'reset_password': self.id, 'exp': time() + expires_in},
+            {token_type: self.id, 'exp': time() + expires_in},
             current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
 
     @staticmethod
-    def verify_reset_password_token(token):
+    def verify_token(token, token_type='reset_password'):
         try:
             id = jwt.decode(token, current_app.config['SECRET_KEY'],
-                            algorithms=['HS256'])['reset_password']
+                            algorithms=['HS256'])[token_type]
         except Exception as e:
             current_app.logger.error('Error {}'.format(e))
             return

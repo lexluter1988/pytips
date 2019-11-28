@@ -1,0 +1,12 @@
+<p>Dear {{ user.username }},</p>
+<p>
+    {{ _('To confirm your account') }}
+    <a href="{{ url_for('auth.register', token=token, _external=True) }}">
+        {{ _('click here') }}
+    </a>
+</p>
+<p>{{ _('Alternatively, you can paste the following link in your browser\'s address bar:') }}</p>
+<p>{{ url_for('auth.register', token=token, _external=True) }}</p>
+<p>{{ _('If you have not registered in our system, simply ignore this message.') }}</p>
+<p>{{ _('Sincerely,') }}</p>
+<p>{{ _('The Pytips Team') }}</p>

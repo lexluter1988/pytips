@@ -1,7 +1,7 @@
 import random
 import re
 
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
@@ -9,20 +9,24 @@ from app import db
 from app.models import Tip, HashTag, hashtags
 from app.tips import bp
 from app.tips.forms import TipForm
+from app.utils.decorators import check_confirmed
 
 
 @bp.route('/tips', methods=['GET'])
 def get_tip():
     tips = Tip.query.all()
-    tip_of_the_day = 'No tips in database'
     if tips:
+        session['tips'] = random.shuffle(tips)
         rand = random.randint(0, len(tips) - 1)
         tip_of_the_day = tips[rand]
+    else:
+        return render_template('tips/tips.html', title='Tip of a day')
     return render_template('tips/tips.html', title='Tip of a day', tip=tip_of_the_day)
 
 
 @bp.route('/tips/new', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def create_tip():
     form = TipForm()
     if form.validate_on_submit():
@@ -44,6 +48,7 @@ def create_tip():
 
 @bp.route('/tips/edit/<tip_id>', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def edit_tip(tip_id):
     form = TipForm()
     tip = db.session.query(Tip).filter(Tip.id == tip_id).first()

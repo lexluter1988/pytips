@@ -3,7 +3,7 @@
 
 {% block app_content %}
     <h1>{{ _('Sign In') }}</h1>
-    <p>{{ _('New User?') }} <a href="{{ url_for('auth.register') }}">{{ _('Click to Register!') }}</a></p>
+    <p>{{ _('New User?') }} <a href="{{ url_for('auth.register_request') }}">{{ _('Click to Register!') }}</a></p>
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}
