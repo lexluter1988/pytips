@@ -13,6 +13,15 @@ def load_user(id):
     return User.query.get(int(id))
 
 
+hashtags = db.Table('hashtags_tips',
+                    db.Column('hashtags_id', db.Integer, db.ForeignKey('hashtags.id'), primary_key=True),
+                    db.Column('tips_id', db.Integer, db.ForeignKey('tips.id'), primary_key=True))
+
+followers = db.Table('followers',
+                     db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+                     db.Column('followed_id', db.Integer, db.ForeignKey('users.id')))
+
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -23,6 +32,11 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     tips = db.relationship('Tip', backref='author', lazy='dynamic')
+
+    followed = db.relationship('User', secondary=followers,
+                               primaryjoin=(followers.c.follower_id == id),
+                               secondaryjoin=(followers.c.followed_id == id),
+                               backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -47,11 +61,6 @@ class User(UserMixin, db.Model):
             current_app.logger.error('Error {}'.format(e))
             return
         return User.query.get(id)
-
-
-hashtags = db.Table('hashtags_tips',
-                    db.Column('hashtags_id', db.Integer, db.ForeignKey('hashtags.id'), primary_key=True),
-                    db.Column('tips_id', db.Integer, db.ForeignKey('tips.id'), primary_key=True))
 
 
 class Tip(db.Model):
