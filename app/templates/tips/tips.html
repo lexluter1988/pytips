@@ -1,10 +1,11 @@
 {% extends "main/base.html" %}
 {% block app_content %}
-    <div id="tips">
-        <h2>Did you know that</h2>
-        <code>{{ tip }}</code>
-    </div>
     {% if tip %}
+        <div id="tips">
+            <h2>Did you know that</h2>
+            <code>{{ tip }}</code>
+            <br><small> <b> created by: </b><a href="{{  url_for('tips.follow', username=tip.author.username)}}"> {{  tip.author.username }}</a> </small>
+        </div>
         <div id="hashtags">
         {% if tip.hashtags %}
             {% for hashtag in tip.hashtags %}

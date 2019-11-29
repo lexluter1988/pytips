@@ -20,13 +20,13 @@
         <div>
            {% block navbar %}
                 <nav class="navbar navbar-default">
-                    <a href="{{ url_for('main.index') }}">{{ _('Home') }}</a>
                     {% if current_user.is_anonymous %}
                     <a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
                     {% else %}
-                    <a href="{{ url_for('main.user', username=current_user.username) }}">{{ _('Profile') }}</a>
+                    <a href="{{ url_for('main.user', username=current_user.username) }}">{{ current_user.username }}</a>
                     <a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
                     {% endif %}
+                    <a href="{{ url_for('main.index') }}">{{ _('Home') }}</a>
                 </nav>
             {% endblock %}
         </div>
