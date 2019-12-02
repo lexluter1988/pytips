@@ -82,6 +82,7 @@ class Tip(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     hashtags = db.relationship('HashTag', secondary=hashtags, lazy='subquery', backref=db.backref('tips', lazy=True))
+    likes = db.relationship('Like', backref='likes', lazy='dynamic')
 
     def __repr__(self):
         return self.body
@@ -94,6 +95,14 @@ class HashTag(db.Model):
 
     def __repr__(self):
         return self.tag
+
+
+class Like(db.Model):
+    __tablename__ = 'likes'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    tip_id = db.Column(db.Integer, db.ForeignKey('tips.id'))
+
 
 #examples
 # h = Tip.query.join(hashtags).filter_by(tips_id=14).all()
@@ -111,3 +120,9 @@ class HashTag(db.Model):
 
 # get tips by hashtag id
 # tips = Tip.query.join(hashtags).filter_by(hashtags_id=4).all()
+
+# >>> likes = t.likes.all()
+# >>> likes
+# [<Like 1>]
+# >>> t.likes.first()
+# <Like 1>

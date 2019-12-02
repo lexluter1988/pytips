@@ -1,9 +1,9 @@
 from app import create_app, db
-from app.models import User, HashTag, Tip
+from app.models import User, HashTag, Tip, Like
 
 app = create_app()
 
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User, 'Tip': Tip, 'Hashtag': HashTag}
+    return {'db': db, 'User': User, 'Tip': Tip, 'Hashtag': HashTag, 'Like': Like}

@@ -6,7 +6,7 @@ from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
 from app import db
-from app.models import Tip, HashTag, hashtags, User
+from app.models import Tip, HashTag, hashtags, User, Like
 from app.tips import bp
 from app.tips.forms import TipForm
 from app.utils.decorators import check_confirmed
@@ -19,9 +19,10 @@ def get_tip():
         session['tips'] = random.shuffle(tips)
         rand = random.randint(0, len(tips) - 1)
         tip_of_the_day = tips[rand]
+        likes = tip_of_the_day.likes.all()
     else:
         return render_template('tips/tips.html', title='Tip of a day')
-    return render_template('tips/tips.html', title='Tip of a day', tip=tip_of_the_day)
+    return render_template('tips/tips.html', title='Tip of a day', tip=tip_of_the_day, likes=likes)
 
 
 @bp.route('/tips/new', methods=['GET', 'POST'])
@@ -92,31 +93,48 @@ def get_tips_by_hashtag(hashtag_id):
 
 @bp.route('/follow/<username>')
 @login_required
+@check_confirmed
 def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('User {} not found.'.format(username))
+        flash(_('User %(username)s not found.', username=username))
         return redirect(url_for('tips.get_tip'))
     if user == current_user:
-        flash('You cannot follow yourself!')
+        flash(_('You cannot follow yourself!'))
         return redirect(url_for('tips.get_tip'))
     current_user.follow(user)
     db.session.commit()
-    flash('You are following {}!'.format(username))
+    flash(_('You are following %(username)s!', username=username))
     return redirect(url_for('tips.get_tip'))
 
 
 @bp.route('/unfollow/<username>')
 @login_required
+@check_confirmed
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('User {} not found.'.format(username))
+        flash(_('User %(username)s not found.', username=username))
         return redirect(url_for('tips.get_tip'))
     if user == current_user:
-        flash('You cannot unfollow yourself!')
+        flash(_('You cannot unfollow yourself!'))
         return redirect(url_for('tips.get_tip'))
     current_user.unfollow(user)
     db.session.commit()
-    flash('You are not following {}.'.format(username))
+    flash(_('You are not following %(username)s!', username=username))
+    return redirect(url_for('tips.get_tip'))
+
+
+@bp.route('/like/<tip_id>')
+@login_required
+@check_confirmed
+def like(tip_id):
+    existing = Like.query.filter_by(user_id=current_user.id).filter_by(tip_id=tip_id).first()
+    if existing:
+        flash(_('You already liked that post!'))
+        return redirect(url_for('tips.get_tip'))
+    like = Like(user_id=current_user.id, tip_id=tip_id)
+    db.session.add(like)
+    db.session.commit()
+    flash(_('You liked that post!'))
     return redirect(url_for('tips.get_tip'))

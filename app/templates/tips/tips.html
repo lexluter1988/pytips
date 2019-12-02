@@ -18,8 +18,13 @@
     <div id="navigation">
     {% if tip %}
         <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+        {% if likes %}
+            <a href="{{  url_for('tips.like', tip_id=tip.id) }}"><i class="fa fa-heart fa-2x"></i></a>
+        {%  else %}
+            <a href="{{  url_for('tips.like', tip_id=tip.id) }}"><i class="fa fa-heart-o fa-2x"></i></a>
+        {% endif %}
     {% endif %}
-        <a href="{{ url_for('tips.create_tip') }}"><i class="fa fa-file fa-2x"></i></a>
+{#        <a href="{{ url_for('tips.create_tip') }}"><i class="fa fa-file fa-2x"></i></a>#}
         <a href="{{ url_for('tips.get_tip') }}"><i class="fa fa-arrow-circle-right fa-2x"></i></a>
 
     </div>
