@@ -19,7 +19,8 @@
     {% if tip %}
         <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}"><i class="fa fa-pencil-square-o fa-2x"></i></a>
         {% if likes %}
-            <a href="{{  url_for('tips.like', tip_id=tip.id) }}"><i class="fa fa-heart fa-2x"></i><span class="badge badge-light">{{ likes|length }}</span></a>
+            <a href="{{  url_for('tips.like', tip_id=tip.id) }}"><i class="fa fa-heart fa-2x"></i></a>
+            <a href="{{  url_for('tips.who_liked', tip_id=tip.id) }}"><span class="badge badge-light">{{ likes|length }}</span></a>
         {%  else %}
             <a href="{{  url_for('tips.like', tip_id=tip.id) }}"><i class="fa fa-heart-o fa-2x"></i></a>
         {% endif %}

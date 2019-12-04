@@ -140,3 +140,12 @@ def like(tip_id):
     db.session.commit()
     flash(_('You liked that post!'))
     return redirect(url_for('tips.get_tip'))
+
+
+@bp.route('/like/who_liked/<tip_id>')
+@login_required
+@check_confirmed
+def who_liked(tip_id):
+    #likes = db.session.query(Like, User.username).join(User, Like.user_id == User.id).all()
+    likes = db.session.query(Like, User.username).filter_by(tip_id=tip_id).join(User, Like.user_id == User.id).all()
+    return render_template('tips/tips_who_liked.html', title='Likes', likes=likes)

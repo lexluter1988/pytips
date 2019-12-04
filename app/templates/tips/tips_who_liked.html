@@ -1,0 +1,9 @@
+{% extends "main/base.html" %}
+{% block app_content %}
+<div id="likes">
+    <p>Liked by: </p>
+    {% for like in likes %}
+        <small><b>{{ like.username }}</b></small><br>
+{% endfor %}
+</div>
+{% endblock %}
