@@ -104,25 +104,17 @@ class Like(db.Model):
     tip_id = db.Column(db.Integer, db.ForeignKey('tips.id'))
 
 
-#examples
+# examples
 # h = Tip.query.join(hashtags).filter_by(tips_id=14).all()
 # return Tip
-
-#>>> h = HashTag.query.join(hashtags).filter_by(tips_id=14).all()
-#>>> h
-#[]
+# h = HashTag.query.join(hashtags).filter_by(tips_id=14).all()
 # return HashTag by tip
-#>>> h = HashTag.query.join(hashtags).all()
-
+# h = HashTag.query.join(hashtags).all()
 # h = HashTag.query.filter(HashTag.tag=='games').first()
-# or
 # h = db.session.query(HashTag).filter(HashTag.tag == 'games').first()
-
 # get tips by hashtag id
 # tips = Tip.query.join(hashtags).filter_by(hashtags_id=4).all()
-
-# >>> likes = t.likes.all()
-# >>> likes
-# [<Like 1>]
-# >>> t.likes.first()
-# <Like 1>
+# likes = t.likes.all()
+# joins
+# likes = db.session.query(Like, User.username).join(User, Like.user_id == User.id).all()
+# likes = db.session.query(Like, User.username).filter_by(tip_id=tip_id).join(User, Like.user_id == User.id).all()

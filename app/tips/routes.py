@@ -25,6 +25,16 @@ def get_tip():
     return render_template('tips/tips.html', title='Tip of a day', tip=tip_of_the_day, likes=likes)
 
 
+@bp.route('/tips/<tip_id>', methods=['GET'])
+def get_tip_by_id(tip_id):
+    tip = db.session.query(Tip).filter(Tip.id == tip_id).first()
+    if tip:
+        likes = tip.likes.all()
+    else:
+        return render_template('tips/tips.html', title='Tip of a day')
+    return render_template('tips/tips.html', title='Tip of a day', tip=tip, likes=likes)
+
+
 @bp.route('/tips/new', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
@@ -91,7 +101,7 @@ def get_tips_by_hashtag(hashtag_id):
     return render_template('tips/tips_by_hashtag.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
 
 
-@bp.route('/follow/<username>')
+@bp.route('/follow/<username>', methods=['GET'])
 @login_required
 @check_confirmed
 def follow(username):
@@ -108,7 +118,7 @@ def follow(username):
     return redirect(url_for('tips.get_tip'))
 
 
-@bp.route('/unfollow/<username>')
+@bp.route('/unfollow/<username>', methods=['GET'])
 @login_required
 @check_confirmed
 def unfollow(username):
@@ -125,7 +135,7 @@ def unfollow(username):
     return redirect(url_for('tips.get_tip'))
 
 
-@bp.route('/like/<tip_id>')
+@bp.route('/like/<tip_id>', methods=['GET'])
 @login_required
 @check_confirmed
 def like(tip_id):
@@ -142,10 +152,9 @@ def like(tip_id):
     return redirect(url_for('tips.get_tip'))
 
 
-@bp.route('/like/who_liked/<tip_id>')
+@bp.route('/like/who_liked/<tip_id>', methods=['GET'])
 @login_required
 @check_confirmed
 def who_liked(tip_id):
-    #likes = db.session.query(Like, User.username).join(User, Like.user_id == User.id).all()
     likes = db.session.query(Like, User.username).filter_by(tip_id=tip_id).join(User, Like.user_id == User.id).all()
     return render_template('tips/tips_who_liked.html', title='Likes', likes=likes)

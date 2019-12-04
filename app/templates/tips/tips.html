@@ -17,18 +17,17 @@
     <br>
     <div id="navigation">
     {% if tip %}
-        <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+        <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil-square-o fa-2x"></i></a>
         {% if likes %}
-            <a href="{{  url_for('tips.like', tip_id=tip.id) }}"><i class="fa fa-heart fa-2x"></i></a>
+            <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart fa-2x"></i></a>
             <a href="{{  url_for('tips.who_liked', tip_id=tip.id) }}"><span class="badge badge-light">{{ likes|length }}</span></a>
         {%  else %}
-            <a href="{{  url_for('tips.like', tip_id=tip.id) }}"><i class="fa fa-heart-o fa-2x"></i></a>
+            <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart-o fa-2x"></i></a>
         {% endif %}
-        <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}"><i class="fa fa-external-link fa-2x"></i></a>
+        <a href="#" data-placement="top" title="{{  url_for('tips.get_tip_by_id', tip_id=tip.id,  _external=True) }}"><i class="fa fa-external-link fa-2x"></i></a>
     {% endif %}
-{#        <a href="{{ url_for('tips.create_tip') }}"><i class="fa fa-file fa-2x"></i></a>#}
-        <a href="{{ url_for('tips.get_tip') }}"><i class="fa fa-arrow-circle-right fa-2x"></i></a>
-
+        <a href="{{ url_for('tips.create_tip') }}" data-toggle="tooltip" title="Create New"><i class="fa fa-file fa-2x"></i></a>
+        <a href="{{ url_for('tips.get_tip') }}" data-toggle="tooltip" title="Next"><i class="fa fa-arrow-circle-right fa-2x"></i></a>
     </div>
 {% endblock %}
 
