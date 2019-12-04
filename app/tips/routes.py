@@ -131,7 +131,9 @@ def unfollow(username):
 def like(tip_id):
     existing = Like.query.filter_by(user_id=current_user.id).filter_by(tip_id=tip_id).first()
     if existing:
-        flash(_('You already liked that post!'))
+        flash(_('You already liked that post! Removing like'))
+        db.session.delete(existing)
+        db.session.commit()
         return redirect(url_for('tips.get_tip'))
     like = Like(user_id=current_user.id, tip_id=tip_id)
     db.session.add(like)
