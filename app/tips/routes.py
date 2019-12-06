@@ -39,7 +39,7 @@ def get_tip_by_id(tip_id):
 @bp.route('/tips/new', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
-@permissions_required(Permissions.ADMINISTER)
+#@permissions_required(Permissions.ADMINISTER)
 def create_tip():
     form = TipForm()
     if form.validate_on_submit():
@@ -66,6 +66,10 @@ def edit_tip(tip_id):
     form = TipForm()
     tip = db.session.query(Tip).filter(Tip.id == tip_id).first()
     # TODO: disallow anyone except admin to edit other users post
+    if current_user.id != tip.user_id:
+        if current_user.email not in current_app.config['ADMINS']:
+            flash(_('You cannot change others tips, unless you are admin!'))
+            return redirect(url_for('tips.get_tip'))
     hashtags_old = [hashtag.tag for hashtag in tip.hashtags]
     if form.validate_on_submit():
         tip.body = form.tip.data
