@@ -14,3 +14,15 @@ def check_confirmed(func):
         return func(*args, **kwargs)
 
     return decorated_function
+
+
+def permissions_required(permission):
+    def decorator(func):
+        @wraps(func)
+        def decorated_function(*args, **kwargs):
+            if not current_user.can(permission):
+                flash(_('Insufficient permissions!'))
+                return redirect(url_for('main.index'))
+            return func(*args, **kwargs)
+        return decorated_function
+    return decorator

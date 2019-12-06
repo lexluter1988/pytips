@@ -6,10 +6,10 @@ from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
 from app import db
-from app.models import Tip, HashTag, hashtags, User, Like
+from app.models import Tip, HashTag, hashtags, User, Like, Permissions
 from app.tips import bp
 from app.tips.forms import TipForm
-from app.utils.decorators import check_confirmed
+from app.utils.decorators import check_confirmed, permissions_required
 
 
 @bp.route('/tips', methods=['GET'])
@@ -39,6 +39,7 @@ def get_tip_by_id(tip_id):
 @bp.route('/tips/new', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
+@permissions_required(Permissions.ADMINISTER)
 def create_tip():
     form = TipForm()
     if form.validate_on_submit():
@@ -64,6 +65,7 @@ def create_tip():
 def edit_tip(tip_id):
     form = TipForm()
     tip = db.session.query(Tip).filter(Tip.id == tip_id).first()
+    # TODO: disallow anyone except admin to edit other users post
     hashtags_old = [hashtag.tag for hashtag in tip.hashtags]
     if form.validate_on_submit():
         tip.body = form.tip.data
