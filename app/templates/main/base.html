@@ -8,6 +8,9 @@
         {% endblock %}
 
         {% block scripts %}
+        {{super()}}
+        <script src="{{url_for('static', filename='main.js')}}"></script>
+
         {{ moment.include_jquery() }}
         {{ moment.include_moment() }}
         {{ moment.lang(g.locale) }}
