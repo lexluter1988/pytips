@@ -1,6 +1,11 @@
 {% extends "main/base.html" %}
 {% block app_content %}
     {% if tip %}
+        {% if not tip.moderated %}
+            <div class="alert alert-dark" role="alert">
+              <strong>{{ _('[Post is under moderation]') }}</strong>
+            </div>
+        {% endif %}
         <div id="tips">
             <h2>Did you know that</h2>
             <code>{{ tip }}</code>
