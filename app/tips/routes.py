@@ -1,7 +1,7 @@
 import random
 import re
 
-from flask import render_template, flash, redirect, url_for, request, session
+from flask import render_template, flash, redirect, url_for, request, session, current_app
 from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
@@ -14,6 +14,7 @@ from app.utils.decorators import check_confirmed
 
 @bp.route('/tips', methods=['GET'])
 def get_tip():
+    current_app.logger.info('dbg,  getting post')
     tips = Tip.query.all()
     if tips:
         session['tips'] = random.shuffle(tips)
