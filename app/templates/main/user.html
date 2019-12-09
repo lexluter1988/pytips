@@ -5,7 +5,12 @@
     <h1>{{ _('User:') }} {{ user.username }}</h1>
     <h2>{{ _('About:') }} {{ user.about_me }}</h2>
     <p>{{ _('Last seen on:') }} {{ moment(user.last_seen).format('LLL') }}</p>
-    <p>{{ _('Posts:') }}</p>
+    <p>{{ _('Posts:') }} {{ tips | length }}</p>
+        <ul>
+            {% for tip in tips %}
+                <li>{{ tip.body }}</li>
+            {% endfor %}
+        </ul>
     <p>{{ _('Following:') }}</p>
         <ul>
             {% for follow in user.followed %}

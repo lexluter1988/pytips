@@ -10,7 +10,7 @@ from flask_login import current_user, login_required
 from app import db
 from app.main import bp
 from app.main.forms import EditProfileForm
-from app.models import User
+from app.models import User, Tip
 from app.utils.decorators import check_confirmed
 
 
@@ -33,7 +33,8 @@ def index():
 @check_confirmed
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('main/user.html', user=user)
+    tips = Tip.query.filter(Tip.user_id == current_user.id).all()
+    return render_template('main/user.html', user=user, tips=tips)
 
 
 @bp.before_request
