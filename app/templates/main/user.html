@@ -5,6 +5,19 @@
     <h1>{{ _('User:') }} {{ user.username }}</h1>
     <h2>{{ _('About:') }} {{ user.about_me }}</h2>
     <p>{{ _('Last seen on:') }} {{ moment(user.last_seen).format('LLL') }}</p>
+    <p>{{ _('Posts:') }}</p>
+    <p>{{ _('Following:') }}</p>
+        <ul>
+            {% for follow in user.followed %}
+                <li>{{ follow.username }}</li>
+            {% endfor %}
+        </ul>
+    <p>{{ _('Followers:') }}</p>
+        <ul>
+            {% for follower in user.followers %}
+                <li>{{ follower.username }}</li>
+            {% endfor %}
+        </ul>
     <p><a href="{{ url_for('main.edit_profile') }}">{{ _('Edit your profile') }}</a></p>
     {% endif %}
     <hr>
