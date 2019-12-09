@@ -34,7 +34,10 @@ def index():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     tips = Tip.query.filter(Tip.user_id == current_user.id).all()
-    return render_template('main/user.html', user=user, tips=tips)
+    moderation = []
+    if user.role.permissions == 255:
+        moderation = Tip.query.filter_by(moderated=False).all()
+    return render_template('main/user.html', user=user, tips=tips, moderation=moderation)
 
 
 @bp.before_request

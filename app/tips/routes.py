@@ -39,7 +39,6 @@ def get_tip_by_id(tip_id):
 @bp.route('/tips/new', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
-#@permissions_required(Permissions.ADMINISTER)
 def create_tip():
     form = TipForm()
     if form.validate_on_submit():
@@ -106,6 +105,19 @@ def get_tips_by_hashtag(hashtag_id):
     hashtag = HashTag.query.filter(HashTag.id == hashtag_id).first()
     tips = Tip.query.join(hashtags).filter_by(hashtags_id=hashtag_id).all()
     return render_template('tips/tips_by_hashtag.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
+
+
+@bp.route('/tips/moderate/<tip_id>', methods=['GET'])
+@login_required
+@check_confirmed
+@permissions_required(Permissions.ADMINISTER)
+def moderate_tip(tip_id):
+    tip = Tip.query.filter_by(id=tip_id).first()
+    tip.moderated = True
+    db.session.add(tip)
+    db.session.commit()
+    flash(_('Tip approved'))
+    return redirect(url_for('main.user', username=current_user.username))
 
 
 @bp.route('/follow/<username>', methods=['GET'])

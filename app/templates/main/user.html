@@ -23,6 +23,15 @@
                 <li>{{ follower.username }}</li>
             {% endfor %}
         </ul>
+    {% if current_user.role.permissions == 255 %}
+        <p>{{ _('On moderation:') }}</p>
+        <ul>
+            {% for moderate in moderation %}
+                <li>{{ moderate.body }}</li><a href="{{ url_for('tips.moderate_tip', tip_id=moderate.id) }}">{{ _('Approve') }}</a>
+            {% endfor %}
+        </ul>
+    {%  endif %}
+
     <p><a href="{{ url_for('main.edit_profile') }}">{{ _('Edit your profile') }}</a></p>
     {% endif %}
     <hr>
