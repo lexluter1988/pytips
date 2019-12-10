@@ -12,6 +12,16 @@ from app.tips.forms import TipForm
 from app.utils.decorators import check_confirmed, permissions_required
 
 
+def _append_hashtags(tip, form):
+    hashtags = re.findall(r'\#\w+', form.hashtags.data)
+    for hashtag in hashtags:
+        tag = HashTag.query.filter(HashTag.tag == hashtag).first()
+        if not tag:
+            tag = HashTag(tag=hashtag)
+            db.session.add(tag)
+        tip.hashtags.append(tag)
+
+
 @bp.route('/tips', methods=['GET'])
 def get_tip():
     current_app.logger.info('dbg,  getting post')
@@ -43,14 +53,7 @@ def create_tip():
     form = TipForm()
     if form.validate_on_submit():
         tip = Tip(body=form.tip.data, author=current_user)
-        hashtags = re.findall(r'\#\w+', form.hashtags.data)
-        for hashtag in hashtags:
-            tag = HashTag.query.filter(HashTag.tag == hashtag).first()
-            if not tag:
-                tag = HashTag(tag=hashtag)
-                db.session.add(tag)
-            tip.hashtags.append(tag)
-
+        _append_hashtags(tip, form)
         db.session.add(tip)
         db.session.commit()
         flash(_('Your tip is now live!'))
@@ -64,7 +67,6 @@ def create_tip():
 def edit_tip(tip_id):
     form = TipForm()
     tip = db.session.query(Tip).filter(Tip.id == tip_id).first()
-    # TODO: disallow anyone except admin to edit other users post
     if current_user.id != tip.user_id:
         if current_user.email not in current_app.config['ADMINS']:
             flash(_('You cannot change others tips, unless you are admin!'))
@@ -73,13 +75,7 @@ def edit_tip(tip_id):
     if form.validate_on_submit():
         tip.body = form.tip.data
         hashtags_new = re.findall(r'\#\w+', form.hashtags.data)
-        for hashtag in hashtags_new:
-            tag = HashTag.query.filter(HashTag.tag == hashtag).first()
-            if not tag:
-                tag = HashTag(tag=hashtag)
-                db.session.add(tag)
-            tip.hashtags.append(tag)
-        # remove tags that were not in the new version of tip
+        _append_hashtags(tip, form)
         hashtags_diff = list(set(hashtags_old) - set(hashtags_new))
         for hashtag in hashtags_diff:
             tag = HashTag.query.filter(HashTag.tag == hashtag).first()
