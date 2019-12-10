@@ -22,6 +22,12 @@ def before_request():
     g.locale = str(get_locale())
 
 
+@bp.route('/')
+@bp.route('/index')
+def index():
+    return redirect(url_for('tips.get_tip'))
+
+
 @bp.route('/user/<username>')
 @login_required
 @check_confirmed

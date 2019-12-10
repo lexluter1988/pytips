@@ -1,7 +1,7 @@
 import random
 import re
 
-from flask import render_template, flash, redirect, url_for, request, session, current_app
+from flask import render_template, flash, redirect, url_for, request, session, current_app, jsonify
 from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
@@ -24,7 +24,7 @@ def _append_hashtags(tip, form):
 
 @bp.route('/tips', methods=['GET'])
 def get_tip():
-    current_app.logger.info('dbg,  getting post')
+    # current_app.logger.info('dbg,  getting post')
     tips = Tip.query.all()
     if tips:
         session['tips'] = random.shuffle(tips)
@@ -51,6 +51,12 @@ def get_tips_by_hashtag(hashtag_id):
     hashtag = HashTag.query.filter(HashTag.id == hashtag_id).first()
     tips = Tip.query.join(hashtags).filter_by(hashtags_id=hashtag_id).all()
     return render_template('tips/tips_by_hashtag.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
+
+
+@bp.route('/tips/hashtags', methods=['GET'])
+def get_all_hashtags():
+    hashtags = HashTag.query.all()
+    return jsonify([hashtag.tag for hashtag in hashtags])
 
 
 @bp.route('/tips/new', methods=['GET', 'POST'])
