@@ -46,6 +46,13 @@ def get_tip_by_id(tip_id):
     return render_template('tips/tips.html', title='Tip of a day', tip=tip, likes=likes)
 
 
+@bp.route('/tips/get_by_hashtag/<hashtag_id>', methods=['GET'])
+def get_tips_by_hashtag(hashtag_id):
+    hashtag = HashTag.query.filter(HashTag.id == hashtag_id).first()
+    tips = Tip.query.join(hashtags).filter_by(hashtags_id=hashtag_id).all()
+    return render_template('tips/tips_by_hashtag.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
+
+
 @bp.route('/tips/new', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
@@ -96,13 +103,6 @@ def edit_tip(tip_id):
     return render_template('tips/new_tips.html', title='Edit tip', form=form)
 
 
-@bp.route('/tips/get_by_hashtag/<hashtag_id>', methods=['GET'])
-def get_tips_by_hashtag(hashtag_id):
-    hashtag = HashTag.query.filter(HashTag.id == hashtag_id).first()
-    tips = Tip.query.join(hashtags).filter_by(hashtags_id=hashtag_id).all()
-    return render_template('tips/tips_by_hashtag.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
-
-
 @bp.route('/tips/moderate/<tip_id>', methods=['GET'])
 @login_required
 @check_confirmed
@@ -113,6 +113,21 @@ def moderate_tip(tip_id):
     db.session.add(tip)
     db.session.commit()
     flash(_('Tip approved'))
+    return redirect(url_for('main.user', username=current_user.username))
+
+
+@bp.route('/tips/delete/<tip_id>', methods=['GET'])
+@login_required
+@check_confirmed
+def delete_tip(tip_id):
+    tip = Tip.query.filter_by(id=tip_id).first()
+    if current_user.id != tip.user_id:
+        if current_user.email not in current_app.config['ADMINS']:
+            flash(_('You cannot delete other users tips unless you admin!'))
+            return redirect(url_for('main.user', username=current_user.username))
+    db.session.delete(tip)
+    db.session.commit()
+    flash(_('Tip deleted!'))
     return redirect(url_for('main.user', username=current_user.username))
 
 
