@@ -22,12 +22,6 @@ def before_request():
     g.locale = str(get_locale())
 
 
-@bp.route('/')
-@bp.route('/index')
-def index():
-    return redirect(url_for('tips.get_tip'))
-
-
 @bp.route('/user/<username>')
 @login_required
 @check_confirmed
@@ -39,7 +33,8 @@ def user(username):
     moderation = []
     if user.role.permissions == 255:
         moderation = Tip.query.filter_by(moderated=False).all()
-    return render_template('main/user.html', user=user, tips=tips, moderation=moderation, following_posts=following_posts)
+    return render_template(
+        'main/user.html', user=user, tips=tips, moderation=moderation, following_posts=following_posts)
 
 
 @bp.before_request
