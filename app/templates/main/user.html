@@ -1,10 +1,18 @@
 {% extends "main/base.html" %}
 
 {% block app_content %}
-    {% if user == current_user %}
+    {% if user != current_user %}
+        <p>
+            <a href="{{ url_for('main.send_message',
+                                recipient=user.username) }}">
+                {{ _('Send private message') }}
+            </a>
+        </p>
+    {% endif %}
     <h1>{{ _('User:') }} {{ user.username }}</h1>
     <h2>{{ _('About:') }} {{ user.about_me }}</h2>
     <p>{{ _('Last seen on:') }} {{ moment(user.last_seen).format('LLL') }}</p>
+    {% if user == current_user %}
     <p>{{ _('Posts:') }} {{ tips | length }}</p>
         <ul>
             {% for tip in tips %}
@@ -38,7 +46,7 @@
             {% endfor %}
         </ul>
     {%  endif %}
-
+    <p><a href="{{ url_for('main.messages') }}">{{ _('My messages') }}</a></p>
     <p><a href="{{ url_for('main.edit_profile') }}">{{ _('Edit your profile') }}</a></p>
     {% endif %}
     <hr>

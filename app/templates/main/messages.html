@@ -1,0 +1,9 @@
+{% extends 'main/base.html' %}
+
+{% block app_content %}
+    <h1>{{ _('Messages') }}</h1>
+    {% for msg in messages %}
+        <small>from: <b> {{ msg.author.username }}</b></small>
+        <p> {{  msg.body }}</p>
+    {% endfor %}
+{% endblock %}

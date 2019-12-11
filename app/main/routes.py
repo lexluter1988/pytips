@@ -9,8 +9,8 @@ from flask_login import current_user, login_required
 
 from app import db
 from app.main import bp
-from app.main.forms import EditProfileForm
-from app.models import User, Tip
+from app.main.forms import EditProfileForm, MessageForm
+from app.models import User, Tip, Message
 from app.utils.decorators import check_confirmed
 
 
@@ -67,3 +67,27 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('main/edit_profile.html', title='Edit Profile',
                            form=form)
+
+
+@bp.route('/send_message/<recipient>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def send_message(recipient):
+    user = User.query.filter_by(username=recipient).first_or_404()
+    form = MessageForm()
+    if form.validate_on_submit():
+        msg = Message(author=current_user, recipient=user, body=form.message.data)
+        db.session.add(msg)
+        db.session.commit()
+        flash(_('Your message has been sent.'))
+        return redirect(url_for('main.user', username=recipient))
+    return render_template('main/send_message.html', title=_('Send Message'),
+                           form=form, recipient=recipient)
+
+
+@bp.route('/messages', methods=['GET'])
+@login_required
+@check_confirmed
+def messages():
+    messages = current_user.messages_received.all()
+    return render_template('main/messages.html', messages=messages)
