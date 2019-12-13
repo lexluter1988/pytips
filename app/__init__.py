@@ -3,6 +3,7 @@ import os
 from logging.handlers import RotatingFileHandler
 from logging.handlers import SMTPHandler
 
+from celery import Celery
 from flask import Flask, current_app
 from flask import request
 from flask_admin.contrib.sqla import ModelView
@@ -31,10 +32,17 @@ babel = Babel()
 admin = Admin(name='pytips', template_mode='bootstrap3')
 
 
+celery = Celery(
+        __name__,
+        backend=Config.CELERY_RESULT_BACKEND,
+        broker=Config.CELERY_BROKER_URL
+    )
+
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-
+    celery.conf.update(app.config)
     app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 
     db.init_app(app)

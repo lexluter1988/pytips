@@ -18,22 +18,29 @@
             {% if title %}{{ title }} - Pytips{% else %}Welcome to Pytips{% endif %}
         {% endblock %}
     </head>
-    <body>
         <div>
            {% block navbar %}
                 <nav class="navbar navbar-default">
-                    {% if current_user.is_anonymous %}
-                    <a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
-                    {% else %}
-                    <a href="{{ url_for('main.user', username=current_user.username) }}">{{ current_user.username }}</a>
-                    <a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
-                    {% endif %}
-                    <a href="{{ url_for('main.index') }}">{{ _('Home') }}</a>
+                    <div class="container">
+                        <div class="nav navbar-nav">
+                            {% if current_user.is_anonymous %}
+                            <a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a>
+                            {% else %}
+                            <a href="{{ url_for('main.user', username=current_user.username) }}">{{ current_user.username }}</a>
+                            <a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
+                            {% endif %}
+                            <a href="{{ url_for('main.index') }}">{{ _('Home') }}</a>
+                        </div>
+                    </div>
                 </nav>
             {% endblock %}
         </div>
         <hr>
         {% block content %}
+            <div class="jumbotron text-center">
+                <h1>Pytips - super duper site</h1>
+                <p>New tips every day</p>
+            </div>
             <div class="container">
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -45,5 +52,4 @@
                 {% block app_content %}{% endblock %}
             </div>
         {% endblock %}
-    </body>
 </html>

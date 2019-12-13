@@ -1,0 +1,8 @@
+# run redis as container
+docker run --name my-redis-container -p 6379:6379 -d redis
+
+# run worker
+celery worker -A celery_worker.celery --loglevel=info
+
+# start app
+flask run
