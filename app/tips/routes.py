@@ -93,13 +93,6 @@ def edit_tip(tip_id):
         for hashtag in hashtags_diff:
             tag = HashTag.query.filter(HashTag.tag == hashtag).first()
             tip.hashtags.remove(tag)
-        # clean up unused hashtags
-        # TODO: implement via periodic task
-        hashtags_all = HashTag.query.all()
-        for hashtag in hashtags_all:
-            tips = Tip.query.join(hashtags).filter_by(hashtags_id=hashtag.id).all()
-            if not tips:
-                db.session.delete(hashtag)
         db.session.commit()
         flash(_('Your tip has been changed!'))
         return redirect(url_for('tips.get_tip'))
