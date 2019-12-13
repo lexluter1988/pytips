@@ -2,7 +2,11 @@
 docker run --name my-redis-container -p 6379:6379 -d redis
 
 # run worker
-celery worker -A celery_worker.celery --loglevel=info
+celery -A celery_worker:celery worker --loglevel=DEBUG
+
+# run beat
+
+celery -A celery_worker:celery beat --loglevel=DEBUG
 
 # start app
 flask run

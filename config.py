@@ -16,3 +16,10 @@ class Config(object):
     LANGUAGES = ['en', 'ru']
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+    CELERY_IMPORTS = ('app.tasks.periodic', )
+    CELERYBEAT_SCHEDULE = {
+        'cleanup-hash-tags': {
+            'task': 'app.tasks.periodic.cleanup_hash_tags',
+            'schedule': 5,
+            'args': (),
+        }}

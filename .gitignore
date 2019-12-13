@@ -4,3 +4,4 @@ app.db
 *idea
 migrations
 logs
+celerybeat-schedule

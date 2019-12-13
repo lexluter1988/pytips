@@ -1,6 +1,6 @@
 from app import celery
 
 
-@celery.task
-def send_async_hello():
+@celery.task()
+def cleanup_hash_tags():
     print('hello world')

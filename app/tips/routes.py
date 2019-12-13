@@ -7,7 +7,6 @@ from flask_login import current_user, login_required
 
 from app import db
 from app.models import Tip, HashTag, hashtags, User, Like, Permissions
-from app.tasks.periodic import send_async_hello
 from app.tips import bp
 from app.tips.forms import TipForm
 from app.utils.decorators import check_confirmed, permissions_required
@@ -21,12 +20,6 @@ def _append_hashtags(tip, form):
             tag = HashTag(tag=hashtag)
             db.session.add(tag)
         tip.hashtags.append(tag)
-
-
-@bp.route('/hello', methods=['GET'])
-def hello():
-    send_async_hello.delay()
-    return jsonify('ok')
 
 
 @bp.route('/tips', methods=['GET'])
