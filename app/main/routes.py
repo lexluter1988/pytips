@@ -100,3 +100,15 @@ def send_message(recipient):
 def messages():
     messages = current_user.messages_received.all()
     return render_template('main/messages.html', messages=messages)
+
+
+@bp.route('/messages/<msg_id>/<status>', methods=['GET'])
+@login_required
+@check_confirmed
+def mark_as(msg_id, status):
+    message = current_user.messages_received.filter_by(id=msg_id).first()
+    if message:
+        message.status = status
+        db.session.add(message)
+        db.session.commit()
+    return redirect(url_for('main.messages'))

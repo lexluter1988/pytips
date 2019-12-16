@@ -3,7 +3,20 @@
 {% block app_content %}
     <h1>{{ _('Messages') }}</h1>
     {% for msg in messages %}
-        <small>from: <b> {{ msg.author.username }}</b></small>
-        <p> {{  msg.body }}</p>
+        <small>{{ _('from:') }} <b> {{ msg.author.username }}</b></small>
+        <p>{{ _('text:') }} </p>
+        {% if msg.status == 1 %}
+            <p> {{ _('you read this message') }}</p>
+            {{  msg.body }}
+        {% else %}
+            <p> {{ _('unread message') }}</p>
+            <b>{{  msg.body }}</b>
+        {% endif %}
+        <p>{{ _('when:') }} {{ moment(msg.timestamp).format('LLL') }}</p>
+        {%  if msg.status == 1 %}
+            <a href="{{ url_for('main.mark_as', msg_id = msg.id, status = 0) }}">{{ _('mark as unread') }}</a>
+        {% else %}
+            <a href="{{ url_for('main.mark_as', msg_id = msg.id, status = 1) }}">{{ _('mark as read') }}</a>
+        {% endif %}
     {% endfor %}
 {% endblock %}
