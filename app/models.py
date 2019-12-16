@@ -165,6 +165,7 @@ class Message(db.Model):
     body = db.Column(db.String(140))
     status = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    reply_id = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return '<Message {}>'.format(self.body)

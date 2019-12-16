@@ -112,3 +112,19 @@ def mark_as(msg_id, status):
         db.session.add(message)
         db.session.commit()
     return redirect(url_for('main.messages'))
+
+
+@bp.route('/messages/<msg_id>/reply/<recipient_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def reply(msg_id, recipient_id):
+    recipient = User.query.filter_by(id=recipient_id).first_or_404()
+    form = MessageForm()
+    if form.validate_on_submit():
+        msg = Message(author=current_user, recipient=recipient, body=form.message.data, reply_id=msg_id)
+        db.session.add(msg)
+        db.session.commit()
+        flash(_('Your reply has been sent.'))
+        return redirect(url_for('main.user', username=current_user.username))
+    return render_template('main/send_message.html', title=_('Send Message'),
+                           form=form, recipient=recipient.username)
