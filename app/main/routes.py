@@ -98,8 +98,9 @@ def send_message(recipient):
 @login_required
 @check_confirmed
 def messages():
-    messages = current_user.messages_received.all()
-    return render_template('main/messages.html', messages=messages)
+    inbox = current_user.messages_received.all()
+    sent = current_user.messages_sent.all()
+    return render_template('main/messages.html', inbox=inbox, sent=sent)
 
 
 @bp.route('/messages/<msg_id>/<status>', methods=['GET'])
