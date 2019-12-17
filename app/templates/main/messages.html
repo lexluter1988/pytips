@@ -11,16 +11,15 @@
              {% for msg in inbox %}
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <small>{{ _('from:') }} <b> {{ msg.author.username }}</b></small>
-                        <p>{{ _('text:') }} </p>
+                        <small>{{ _('when:') }} {{ moment(msg.timestamp).format('LLL') }}</small><br>
+                        <small>{{ _('from:') }}  {{ msg.author.username }}</small><br>
+                        <br>
                         {% if msg.status == 1 %}
-                            <p> {{ _('you read this message') }}</p>
                             {{  msg.body }}
                         {% else %}
-                            <p> {{ _('unread message') }}</p>
                             <b>{{  msg.body }}</b>
                         {% endif %}
-                        <p>{{ _('when:') }} {{ moment(msg.timestamp).format('LLL') }}</p>
+                        <br>
                         <a href="{{ url_for('main.delete', msg_id = msg.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
                         {%  if msg.status == 1 %}
                             <a href="{{ url_for('main.mark_as', msg_id = msg.id, status = 0) }}">{{ _('mark as unread') }}</a>
@@ -37,16 +36,14 @@
             {% for msg in sent %}
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <small>{{ _('from:') }} <b> {{ msg.author.username }}</b></small>
-                        <p>{{ _('text:') }} </p>
+                        <small>{{ _('when:') }} {{ moment(msg.timestamp).format('LLL') }}</small><br>
+                        <small>{{ _('from:') }}  {{ msg.author.username }}</small><br>
+                        <br>
                         {% if msg.status == 1 %}
-                            <p> {{ _('user read the message') }}</p>
                             {{  msg.body }}
                         {% else %}
-                            <p> {{ _('unread message') }}</p>
                             <b>{{  msg.body }}</b>
                         {% endif %}
-                        <p>{{ _('when:') }} {{ moment(msg.timestamp).format('LLL') }}</p>
                     </div>
                 </div>
             {% endfor %}

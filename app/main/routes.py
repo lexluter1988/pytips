@@ -3,7 +3,6 @@ from datetime import datetime
 from flask import g
 from flask import render_template, flash, redirect, url_for
 from flask import request
-from flask_admin.contrib import sqla
 from flask_babel import _
 from flask_babel import get_locale
 from flask_login import current_user, login_required
@@ -27,14 +26,6 @@ def before_request():
 @bp.route('/index')
 def index():
     return redirect(url_for('tips.get_tip'))
-
-
-@bp.route('/admin')
-@login_required
-@check_confirmed
-def admin():
-    if not current_user.role.permissions == 255:
-        return redirect(url_for('tips.get_tip'))
 
 
 @bp.route('/user/<username>')
