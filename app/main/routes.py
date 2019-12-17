@@ -129,3 +129,15 @@ def reply(msg_id, recipient_id):
         return redirect(url_for('main.user', username=current_user.username))
     return render_template('main/send_message.html', title=_('Send Message'),
                            form=form, recipient=recipient.username)
+
+
+@bp.route('/messages/<msg_id>/delete', methods=['GET'])
+@login_required
+@check_confirmed
+def delete(msg_id):
+    message = Message.query.filter_by(id=msg_id).first()
+    if message:
+        db.session.delete(message)
+        db.session.commit()
+        flash(_('Message deleted'))
+    return redirect(url_for('main.user', username=current_user.username))

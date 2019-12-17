@@ -16,7 +16,7 @@
     <p>{{ _('Posts:') }} {{ tips | length }}</p>
         <ul>
             {% for tip in tips %}
-                <li>{{ tip.body }} <a href="{{ url_for('tips.delete_tip', tip_id = tip.id ) }}"><span class="glyphicon glyphicon-trash"></span></a> </li>
+                <li>{{ tip.body }} <a href="{{ url_for('tips.delete_tip', tip_id = tip.id ) }}"><span class="glyphicon glyphicon-trash"></span></a></li>
             {% endfor %}
         </ul>
     <p>{{ _('Following:') }}</p>

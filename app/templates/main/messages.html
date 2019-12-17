@@ -21,6 +21,7 @@
                             <b>{{  msg.body }}</b>
                         {% endif %}
                         <p>{{ _('when:') }} {{ moment(msg.timestamp).format('LLL') }}</p>
+                        <a href="{{ url_for('main.delete', msg_id = msg.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
                         {%  if msg.status == 1 %}
                             <a href="{{ url_for('main.mark_as', msg_id = msg.id, status = 0) }}">{{ _('mark as unread') }}</a>
                         {% else %}
