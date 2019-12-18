@@ -2,7 +2,7 @@
 
 {% block app_content %}
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#inbox">{{ _('Inbox') }}</a></li>
+        <li class="active"><a data-toggle="tab" href="#inbox">{{ _('Inbox ') }}<span class="badge badge-light">{{ unread|length }}</span></a>
         <li><a data-toggle="tab" href="#sent">{{ _('Sent') }}</a></li>
     </ul>
     <div class="tab-content">

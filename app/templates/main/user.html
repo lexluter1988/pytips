@@ -46,7 +46,7 @@
             {% endfor %}
         </ul>
     {%  endif %}
-    <p><a href="{{ url_for('main.messages') }}">{{ _('My messages') }}</a></p>
+    <p><a href="{{ url_for('main.messages') }}">{{ _('My messages ') }}<span class="badge badge-light">{{ unread|length }}</span></a></p>
     <p><a href="{{ url_for('main.edit_profile') }}">{{ _('Edit your profile') }}</a></p>
     {% endif %}
     <hr>

@@ -39,8 +39,10 @@ def user(username):
     moderation = []
     if user.role.permissions == 255:
         moderation = Tip.query.filter_by(moderated=False).all()
+    inbox = current_user.messages_received.all()
+    unread = [i for i in inbox if i.status == 0]
     return render_template(
-        'main/user.html', user=user, tips=tips, moderation=moderation, following_posts=following_posts)
+        'main/user.html', user=user, tips=tips, moderation=moderation, following_posts=following_posts, unread=unread)
 
 
 @bp.before_request
@@ -90,8 +92,9 @@ def send_message(recipient):
 @check_confirmed
 def messages():
     inbox = current_user.messages_received.all()
+    unread = [i for i in inbox if i.status == 0]
     sent = current_user.messages_sent.all()
-    return render_template('main/messages.html', inbox=inbox, sent=sent)
+    return render_template('main/messages.html', inbox=inbox, sent=sent, unread=unread)
 
 
 @bp.route('/messages/<msg_id>/<status>', methods=['GET'])
