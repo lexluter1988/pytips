@@ -1,3 +1,4 @@
+import logging
 import random
 import re
 
@@ -10,6 +11,8 @@ from app.models import Tip, HashTag, hashtags, User, Like, Permissions
 from app.tips import bp
 from app.tips.forms import TipForm
 from app.utils.decorators import check_confirmed, permissions_required
+
+LOG = logging.getLogger(__name__)
 
 
 def _append_hashtags(tip, form):
@@ -24,7 +27,7 @@ def _append_hashtags(tip, form):
 
 @bp.route('/tips', methods=['GET'])
 def get_tip():
-    # current_app.logger.info('dbg,  getting post')
+    # just example of log  LOG.error('dbg,  getting post')
     tips = Tip.query.all()
     if tips:
         session['tips'] = random.shuffle(tips)

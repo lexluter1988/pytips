@@ -16,6 +16,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 
 from app.api.v1.resources import api
+from app.logger import RequestFormatter
 from config import Config
 
 db = SQLAlchemy()
@@ -59,6 +60,11 @@ def create_app(config_class=Config):
     from app.tips import bp as tips_bp
     app.register_blueprint(tips_bp)
 
+    formatter = RequestFormatter(
+        '[%(asctime)s] %(remote_addr)s requested %(url)s\n'
+        '%(levelname)s in %(module)s: %(message)s'
+    )
+
     if not app.debug:
         if app.config['MAIL_SERVER']:
             auth = None
@@ -67,20 +73,19 @@ def create_app(config_class=Config):
             secure = None
             if app.config['MAIL_USE_TLS']:
                 secure = ()
-                mail_handler = SMTPHandler(
-                    mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
-                    fromaddr='no-reply@' + app.config['MAIL_SERVER'],
-                    toaddrs=app.config['ADMINS'], subject='Pytips Failure',
-                    credentials=auth, secure=secure)
-                mail_handler.setLevel(logging.ERROR)
-
-                app.logger.addHandler(mail_handler)
+            mail_handler = SMTPHandler(
+                mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
+                fromaddr='no-reply@' + app.config['MAIL_SERVER'],
+                toaddrs=app.config['ADMINS'], subject='Pytips Failure',
+                credentials=auth, secure=secure)
+            mail_handler.setLevel(logging.ERROR)
+            mail_handler.setFormatter(formatter)
+            app.logger.addHandler(mail_handler)
         if not os.path.exists('logs'):
             os.mkdir('logs')
         file_handler = RotatingFileHandler('logs/pytips.log', maxBytes=10240,
                                            backupCount=10)
-        file_handler.setFormatter(logging.Formatter(
-            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler.setFormatter(formatter)
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
 
