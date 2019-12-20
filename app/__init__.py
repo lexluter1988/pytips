@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 from logging.handlers import SMTPHandler
 
 from celery import Celery
-from flask import Flask, current_app
+from flask import Flask, current_app, session
 from flask import request
 from flask_babel import Babel
 from flask_babel import lazy_gettext as _l
@@ -97,4 +97,6 @@ def create_app(config_class=Config):
 
 @babel.localeselector
 def get_locale():
+    if session.get('lang', None):
+        return session['lang']
     return request.accept_languages.best_match(current_app.config['LANGUAGES'])

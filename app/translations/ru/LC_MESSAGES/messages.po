@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-11-21 17:09+0700\n"
-"PO-Revision-Date: 2019-11-21 17:09+0700\n"
+"POT-Creation-Date: 2019-12-20 20:08+0700\n"
+"PO-Revision-Date: 2019-12-20 20:08+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: app/__init__.py:22
+#: app/__init__.py:26
 msgid "Please log in to access this page."
 msgstr ""
 
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Remember Me"
 msgstr ""
 
-#: app/auth/forms.py:14 app/templates/auth/login.html:5
+#: app/auth/forms.py:14 app/templates/auth/login.html:4
 msgid "Sign In"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Repeat Password"
 msgstr ""
 
-#: app/auth/forms.py:23 app/templates/auth/register.html:5
+#: app/auth/forms.py:23 app/templates/auth/register.html:4
 msgid "Register"
 msgstr ""
 
@@ -67,81 +67,123 @@ msgstr ""
 msgid "Invalid username or password"
 msgstr ""
 
-#: app/auth/routes.py:48
-msgid "Congratulations, you are now a registered user!"
+#: app/auth/routes.py:49
+msgid ""
+"Congratulations, you are now a registered user! But not activated yet. "
+"Check your email for confirmation link"
 msgstr ""
 
-#: app/auth/routes.py:62
+#: app/auth/routes.py:65
+msgid "Your account has been activated"
+msgstr ""
+
+#: app/auth/routes.py:78
 msgid "Check your email for the instructions to reset your password"
 msgstr ""
 
-#: app/auth/routes.py:64
+#: app/auth/routes.py:80
 msgid "There is not such user registered"
 msgstr ""
 
-#: app/auth/routes.py:81
+#: app/auth/routes.py:97
 msgid "Your password has been reset."
 msgstr ""
 
 #: app/main/forms.py:12
 msgid "About me"
-msgstr ""
+msgstr "Обо мне"
 
-#: app/main/forms.py:13 app/tips/forms.py:10
+#: app/main/forms.py:13 app/main/forms.py:28 app/tips/forms.py:10
 msgid "Submit"
 msgstr ""
 
-#: app/main/routes.py:53
+#: app/main/forms.py:27
+msgid "Message"
+msgstr ""
+
+#: app/main/routes.py:34
+msgid "Language has been changed."
+msgstr "Язык интерфейса был изменен"
+
+#: app/main/routes.py:72
 msgid "Your changes have been saved."
 msgstr ""
 
-#: app/templates/auth/login.html:6
+#: app/main/routes.py:91
+msgid "Your message has been sent."
+msgstr ""
+
+#: app/main/routes.py:93 app/main/routes.py:131
+msgid "Send Message"
+msgstr ""
+
+#: app/main/routes.py:129
+msgid "Your reply has been sent."
+msgstr ""
+
+#: app/main/routes.py:143
+msgid "Message deleted"
+msgstr ""
+
+#: app/templates/auth/login.html:5
 msgid "New User?"
 msgstr ""
 
-#: app/templates/auth/login.html:6
+#: app/templates/auth/login.html:5
 msgid "Click to Register!"
 msgstr ""
 
-#: app/templates/auth/login.html:14
+#: app/templates/auth/login.html:19
 msgid "Forgot Your Password?"
 msgstr ""
 
-#: app/templates/auth/login.html:15
+#: app/templates/auth/login.html:20
 msgid "Click to Reset It"
 msgstr ""
 
-#: app/templates/auth/reset_password.html:3
-msgid "To reset your password"
+#: app/templates/auth/registration_confirm.html:3
+msgid "To confirm your account"
 msgstr ""
 
+#: app/templates/auth/registration_confirm.html:5
 #: app/templates/auth/reset_password.html:5
 msgid "click here"
 msgstr ""
 
+#: app/templates/auth/registration_confirm.html:8
 #: app/templates/auth/reset_password.html:8
 msgid ""
 "Alternatively, you can paste the following link in your browser's address"
 " bar:"
 msgstr ""
 
-#: app/templates/auth/reset_password.html:10
-msgid "If you have not requested a password reset simply ignore this message."
+#: app/templates/auth/registration_confirm.html:10
+msgid "If you have not registered in our system, simply ignore this message."
 msgstr ""
 
+#: app/templates/auth/registration_confirm.html:11
 #: app/templates/auth/reset_password.html:11
 msgid "Sincerely,"
 msgstr ""
 
+#: app/templates/auth/registration_confirm.html:12
 #: app/templates/auth/reset_password.html:12
 msgid "The Pytips Team"
+msgstr ""
+
+#: app/templates/auth/reset_password.html:3
+msgid "To reset your password"
+msgstr ""
+
+#: app/templates/auth/reset_password.html:10
+msgid "If you have not requested a password reset simply ignore this message."
 msgstr ""
 
 #: app/templates/auth/reset_password_form.html:4
 msgid "Reset Your Password"
 msgstr ""
 
-#: app/templates/auth/reset_password_request.html:5
+#: app/templates/auth/reset_password_request.html:4
 msgid "Reset Password"
 msgstr ""
 
@@ -161,23 +203,15 @@ msgstr ""
 msgid "The administrator has been notified. Sorry for the inconvenience!"
 msgstr ""
 
-#: app/templates/main/base.html:18
-msgid "Home"
+#: app/templates/main/base.html:33
+msgid "ru"
 msgstr ""
 
-#: app/templates/main/base.html:20
-msgid "Login"
+#: app/templates/main/base.html:34
+msgid "en"
 msgstr ""
 
-#: app/templates/main/base.html:22
-msgid "Profile"
-msgstr ""
-
-#: app/templates/main/base.html:23
-msgid "Logout"
-msgstr ""
-
-#: app/templates/main/edit_profile.html:5
+#: app/templates/main/edit_profile.html:4
 msgid "Edit Profile"
 msgstr ""
 
@@ -186,32 +220,101 @@ msgstr ""
 msgid "Hi, %(username)s!"
 msgstr ""
 
-#: app/templates/main/user.html:5
-msgid "User:"
+#: app/templates/main/messages.html:5
+msgid "Inbox "
 msgstr ""
 
-#: app/templates/main/user.html:6
-msgid "About:"
+#: app/templates/main/messages.html:6 app/templates/main/messages.html:35
+msgid "Sent"
 msgstr ""
 
-#: app/templates/main/user.html:7
-msgid "Last seen on:"
+#: app/templates/main/messages.html:10
+msgid "Inbox"
+msgstr ""
+
+#: app/templates/main/messages.html:14 app/templates/main/messages.html:39
+msgid "when:"
+msgstr ""
+
+#: app/templates/main/messages.html:15 app/templates/main/messages.html:40
+msgid "from:"
+msgstr ""
+
+#: app/templates/main/messages.html:25
+msgid "mark as unread"
+msgstr ""
+
+#: app/templates/main/messages.html:27
+msgid "mark as read"
+msgstr ""
+
+#: app/templates/main/messages.html:29
+msgid "reply"
+msgstr ""
+
+#: app/templates/main/send_message.html:4
+#, python-format
+msgid "Send Message to %(recipient)s"
 msgstr ""
 
 #: app/templates/main/user.html:8
+msgid "Send private message"
+msgstr ""
+
+#: app/templates/main/user.html:12
+msgid "User:"
+msgstr ""
+
+#: app/templates/main/user.html:13
+msgid "About:"
+msgstr ""
+
+#: app/templates/main/user.html:14
+msgid "Last seen on:"
+msgstr ""
+
+#: app/templates/main/user.html:16
+msgid "Posts:"
+msgstr ""
+
+#: app/templates/main/user.html:22
+msgid "Following:"
+msgstr ""
+
+#: app/templates/main/user.html:28
+msgid "Post from following:"
+msgstr ""
+
+#: app/templates/main/user.html:35
+msgid "Followers:"
+msgstr ""
+
+#: app/templates/main/user.html:42
+msgid "On moderation:"
+msgstr ""
+
+#: app/templates/main/user.html:45
+msgid "Approve"
+msgstr ""
+
+#: app/templates/main/user.html:49
+msgid "My messages "
+msgstr ""
+
+#: app/templates/main/user.html:50
 msgid "Edit your profile"
 msgstr ""
 
 #: app/templates/tips/tips.html:7
-msgid "Next Tip?"
+msgid "[Post is under moderation]"
 msgstr ""
 
-#: app/templates/tips/tips.html:8
-msgid "Create New Tip?"
+#: app/templates/tips/tips.html:15
+msgid "follow"
 msgstr ""
 
-#: app/templates/tips/tips.html:9
-msgid "Edit This Tip?"
+#: app/templates/tips/tips_by_hashtag.html:4
+msgid "Tips by hashtag "
 msgstr ""
 
 #: app/tips/forms.py:8
@@ -222,11 +325,66 @@ msgstr ""
 msgid "Hashtags"
 msgstr ""
 
-#: app/tips/routes.py:39
+#: app/tips/routes.py:75
 msgid "Your tip is now live!"
 msgstr ""
 
-#: app/tips/routes.py:52
+#: app/tips/routes.py:88
+msgid "You cannot change others tips, unless you are admin!"
+msgstr ""
+
+#: app/tips/routes.py:100
 msgid "Your tip has been changed!"
+msgstr ""
+
+#: app/tips/routes.py:117
+msgid "Tip approved"
+msgstr ""
+
+#: app/tips/routes.py:128
+msgid "You cannot delete other users tips unless you admin!"
+msgstr ""
+
+#: app/tips/routes.py:132
+msgid "Tip deleted!"
+msgstr ""
+
+#: app/tips/routes.py:142 app/tips/routes.py:159
+#, python-format
+msgid "User %(username)s not found."
+msgstr ""
+
+#: app/tips/routes.py:145
+msgid "You cannot follow yourself!"
+msgstr ""
+
+#: app/tips/routes.py:149
+#, python-format
+msgid "You are following %(username)s!"
+msgstr ""
+
+#: app/tips/routes.py:162
+msgid "You cannot unfollow yourself!"
+msgstr ""
+
+#: app/tips/routes.py:166
+#, python-format
+msgid "You are not following %(username)s!"
+msgstr ""
+
+#: app/tips/routes.py:176
+msgid "You already liked that post! Removing like"
+msgstr ""
+
+#: app/tips/routes.py:183
+msgid "You liked that post!"
+msgstr ""
+
+#: app/utils/decorators.py:12
+msgid "Please confirm your account!"
+msgstr ""
+
+#: app/utils/decorators.py:24
+msgid "Insufficient permissions!"
 msgstr ""
 

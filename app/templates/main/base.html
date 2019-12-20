@@ -30,6 +30,8 @@
                             <a href="{{ url_for('auth.logout') }}"><span class="fa fa-sign-out fa-2x"></span></a>
                             {% endif %}
                             <a href="{{ url_for('main.index') }}"><span class="fa fa-home fa-2x"></span></a>
+                            <a href="{{ url_for('main.language', lang='ru') }}">{{ _('ru') }}</a>
+                            <a href="{{ url_for('main.language', lang='en') }}">{{ _('en') }}</a>
                         </div>
                     </div>
                 </nav>
