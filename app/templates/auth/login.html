@@ -1,12 +1,17 @@
 {% extends "main/base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
     <h1>{{ _('Sign In') }}</h1>
     <p>{{ _('New User?') }} <a href="{{ url_for('auth.register_request') }}">{{ _('Click to Register!') }}</a></p>
     <div class="row">
         <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                {{ form.username }}
+                {{ form.password }}
+                {{ form.remember_me }}
+                {{ form.submit() }}
+            </form>
         </div>
     </div>
     <br>

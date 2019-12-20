@@ -1,11 +1,13 @@
 {% extends 'main/base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
     <h1>{{ _('Send Message to %(recipient)s', recipient=recipient) }}</h1>
-    <div class="row">
         <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
+            <form action="" method="post">
+                {{ form.hidden_tag() }} <br>
+                {{ form.message.label }} <br>
+                {{ form.message }} <br>
+                {{ form.submit() }} <br>
+            </form>
         </div>
-    </div>
 {% endblock %}

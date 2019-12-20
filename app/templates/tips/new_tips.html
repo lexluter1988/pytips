@@ -1,5 +1,4 @@
 {% extends "main/base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
 {% block styles %}
     {{super()}}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -12,7 +11,15 @@
 
 {% block app_content %}
     {% if form %}
-    {{ wtf.quick_form(form) }}
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            {{ form.tip.label }}<br>
+            {{ form.tip }}<br>
+            {{ form.hashtags.label }}<br>
+            {{ form.hashtags }}<br>
+            <br>
+            {{ form.submit() }}
+        </form>
     <br>
     {% endif %}
 {% endblock %}
