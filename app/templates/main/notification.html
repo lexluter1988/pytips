@@ -1,0 +1,27 @@
+<div class="toast" id="notification-toast" data-autohide="false" style="position: absolute; top: 0; right: 0;">
+    <div class="toast-header">
+      notificaton
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+    </div>
+    <div class="toast-body">
+        <p id="notify">You got new message <a href="#" id="notify-link">go there</a></p>
+    </div>
+</div>
+<script>
+// TODO: implement types of notifications with widgets like new like, or new message, or new follower
+$(function() {
+    setInterval(function() {
+        $.ajax('{{ url_for('main.notifications') }}').done(
+            function(notifications) {
+                if(notifications.result) {
+                    $('#notify-link').text(notifications.notification);
+                    $('#notification-toast').toast('show');
+                }
+            }
+        );
+    }, 10000);
+});
+/*$(document).ready(function(){
+    $('#notification-toast').toast('show');
+});*/
+</script>

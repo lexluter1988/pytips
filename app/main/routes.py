@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import g, session
+from flask import g, session, jsonify
 from flask import render_template, flash, redirect, url_for
 from flask import request
 from flask_babel import _
@@ -142,3 +142,13 @@ def delete(msg_id):
         db.session.commit()
         flash(_('Message deleted'))
     return redirect(url_for('main.user', username=current_user.username))
+
+
+@bp.route('/notifications', methods=['GET'])
+@login_required
+@check_confirmed
+def notifications():
+    # TODO: implement notification model and messages types
+    return jsonify({'result': 200,
+                    'notification': 'hello friend'
+                    })
