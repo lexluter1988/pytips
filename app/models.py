@@ -186,11 +186,19 @@ class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    timestamp = db.Column(db.Float, index=True, default=time)
+    timestamp = db.Column(db.Float, index=True, default=datetime.utcnow)
     payload_json = db.Column(db.Text)
 
     def get_data(self):
         return json.loads(str(self.payload_json))
+
+
+class Stat(db.Model):
+    __tablename__ = 'stats'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.Float, index=True, default=datetime.utcnow)
+    type = db.Column(db.Text)
+
 
 # examples
 # h = Tip.query.join(hashtags).filter_by(tips_id=14).all()

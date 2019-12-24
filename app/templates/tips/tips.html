@@ -22,16 +22,16 @@
                 {% endif %}
             </div>
             <div id="navigation" class="panel panel-default col-md-4">
-                <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+                <a href="{{  url_for('tips.edit_tip', tip_id=tip.id) }}" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil-square-o fa-1x"></i></a>
                 {% if likes %}
-                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart fa-2x"></i></a>
+                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart fa-1x"></i></a>
                     <a href="{{  url_for('tips.who_liked', tip_id=tip.id) }}"><span class="badge badge-light">{{ likes|length }}</span></a>
                 {%  else %}
-                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart-o fa-2x"></i></a>
+                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart-o fa-1x"></i></a>
                 {% endif %}
-                <a href="#" id="permalink" data-placement="top" title="{{  url_for('tips.get_tip_by_id', tip_id=tip.id,  _external=True) }}" onclick="copyToClipBoard()"><i class="fa fa-external-link fa-2x"></i></a>
-                <a href="{{ url_for('tips.create_tip') }}" data-toggle="tooltip" title="Create New"><i class="fa fa-file fa-2x"></i></a>
-                <a href="{{ url_for('tips.get_tip') }}" data-toggle="tooltip" title="Next"><i class="fa fa-arrow-circle-right fa-2x"></i></a>
+                <a href="#" id="permalink" data-placement="top" title="{{  url_for('tips.get_tip_by_id', tip_id=tip.id,  _external=True) }}" onclick="copyToClipBoard()"><i class="fa fa-external-link fa-1x"></i></a>
+                <a href="{{ url_for('tips.create_tip') }}" data-toggle="tooltip" title="Create New"><i class="fa fa-file fa-1x"></i></a>
+                <a href="{{ url_for('tips.get_tip') }}" data-toggle="tooltip" title="Next"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
             </div>
         </div>
     {% endif %}
