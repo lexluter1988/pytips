@@ -10,7 +10,7 @@ from flask_login import current_user, login_required
 from app import db
 from app.main import bp
 from app.main.forms import EditProfileForm, MessageForm
-from app.models import User, Tip, Message
+from app.models import User, Tip, Message, Notification
 from app.utils.decorators import check_confirmed
 
 
@@ -87,6 +87,8 @@ def send_message(recipient):
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=user, body=form.message.data)
         db.session.add(msg)
+        # notification will show that new message from some user
+        user.add_notification('new_message', current_user.username)
         db.session.commit()
         flash(_('Your message has been sent.'))
         return redirect(url_for('main.user', username=recipient))
@@ -98,6 +100,8 @@ def send_message(recipient):
 @login_required
 @check_confirmed
 def messages():
+    current_user.notifications.delete()
+    db.session.commit()
     inbox = current_user.messages_received.all()
     unread = [i for i in inbox if i.status == 0]
     sent = current_user.messages_sent.all()
@@ -148,7 +152,9 @@ def delete(msg_id):
 @login_required
 @check_confirmed
 def notifications():
-    # TODO: implement notification model and messages types
-    return jsonify({'result': 200,
-                    'notification': 'hello friend'
-                    })
+    notifications = current_user.notifications.all()
+    return jsonify([{
+        'name': n.name,
+        'data': n.get_data(),
+        'timestamp': n.timestamp
+    } for n in notifications])

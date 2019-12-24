@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from app import login
 from flask_login import UserMixin
@@ -57,6 +58,9 @@ class User(UserMixin, db.Model):
                                secondaryjoin=(followers.c.followed_id == id),
                                backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
+    notifications = db.relationship('Notification', backref='user',
+                                    lazy='dynamic')
+
     messages_sent = db.relationship('Message',
                                     foreign_keys='Message.sender_id',
                                     backref='author', lazy='dynamic')
@@ -100,6 +104,12 @@ class User(UserMixin, db.Model):
         return jwt.encode(
             {token_type: self.id, 'exp': time() + expires_in},
             current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    def add_notification(self, name, data):
+        self.notifications.filter_by(name=name).delete()
+        notification = Notification(name=name, payload_json=json.dumps(data), user=self)
+        db.session.add(notification)
+        return notification
 
     @staticmethod
     def insert_roles():
@@ -169,6 +179,18 @@ class Message(db.Model):
 
     def __repr__(self):
         return '<Message {}>'.format(self.body)
+
+
+class Notification(db.Model):
+    __tablename__ = 'notifications'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    timestamp = db.Column(db.Float, index=True, default=time)
+    payload_json = db.Column(db.Text)
+
+    def get_data(self):
+        return json.loads(str(self.payload_json))
 
 # examples
 # h = Tip.query.join(hashtags).filter_by(tips_id=14).all()
