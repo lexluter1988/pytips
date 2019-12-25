@@ -3,20 +3,28 @@
 {% block app_content %}
     <h1>{{ _('Sign In') }}</h1>
     <p>{{ _('New User?') }} <a href="{{ url_for('auth.register_request') }}">{{ _('Click to Register!') }}</a></p>
-    <div class="row">
-        <div class="col-md-4">
-            <form action="" method="post" novalidate>
-                {{ form.hidden_tag() }}
-                {{ form.username }}
-                {{ form.password }}
-                {{ form.remember_me }}
-                {{ form.submit() }}
-            </form>
-        </div>
-    </div>
-    <br>
-    <p>
-        {{ _('Forgot Your Password?') }}
+    <form action="" method="post" class="was-validated">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        <label for="username">{{ _('Username') }}:</label>
+        <input type="text" class="form-control" placeholder="{{ _('Enter username') }}" name="username" id="username" required>
+          <div class="valid-feedback">{{ _('Valid.') }}</div>
+          <div class="invalid-feedback">{{ _('Please fill out this field.') }}</div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" placeholder="{{ _('Enter password') }}" name="password" id="password" required>
+        <div class="valid-feedback">{{ _('Valid.') }}</div>
+        <div class="invalid-feedback">{{ _('Please fill out this field.') }}</div>
+      </div>
+      <div class="form-group form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" name="remember_me" id="remember_me"> {{ _('Remember me') }}
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Sign in') }}</button>
+    </form>
+    <p>{{ _('Forgot Your Password?') }}
         <a href="{{ url_for('auth.reset_password_request') }}">{{ _('Click to Reset It') }}</a>
     </p>
 {% endblock %}
