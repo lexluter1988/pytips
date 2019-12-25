@@ -28,9 +28,14 @@ def _append_hashtags(tip, form):
 @bp.route('/tips', methods=['GET'])
 def get_tip():
     # just example of log  LOG.error('dbg,  getting post')
-    tips = Tip.query.all()
+    if session.get('tips', None):
+        tips = session['tips']
+    else:
+        tips = Tip.query.all()
+        random.shuffle(tips)
+        # TODO: object Tip is not serializable
+        # session['tips'] = tips
     if tips:
-        session['tips'] = random.shuffle(tips)
         rand = random.randint(0, len(tips) - 1)
         tip_of_the_day = tips[rand]
         likes = tip_of_the_day.likes.all()
