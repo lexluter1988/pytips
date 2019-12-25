@@ -38,11 +38,21 @@
             </li>
            </ul>
            <ul class="navbar-nav ml-auto">
+             <form class="form-inline" method="get" action="{{ url_for('main.search') }}">
+               <input type="text" name="pattern" class="form-control-sm mb-1 mr-sm-1" placeholder="{{ _('Search') }}" id="search">
+               <button type="submit" class="btn btn-primary mb-1">
+                 <i class="fa fa-search"></i>
+               </button>
+            </form>
             <li class="nav-item px-1">
-                <a href="{{ url_for('main.language', lang='ru') }}">{{ _('ru') }}</a>
+                <a href="{{ url_for('main.language', lang='ru') }}">
+                    {{ _('ru') }}
+                </a>
             </li>
             <li class="nav-item px-1">
-                <a href="{{ url_for('main.language', lang='en') }}">{{ _('en') }}</a>
+                <a href="{{ url_for('main.language', lang='en') }}">
+                    {{ _('us') }}
+                </a>
             </li>
            </ul>
         </nav>

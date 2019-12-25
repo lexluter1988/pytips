@@ -10,7 +10,7 @@ from flask_login import current_user, login_required
 from app import db
 from app.main import bp
 from app.main.forms import EditProfileForm, MessageForm
-from app.models import User, Tip, Message, Notification
+from app.models import User, Tip, Message
 from app.utils.decorators import check_confirmed
 
 
@@ -25,6 +25,19 @@ def before_request():
 @bp.route('/')
 @bp.route('/index')
 def index():
+    return redirect(url_for('tips.get_tip'))
+
+
+@bp.route('/search')
+def search():
+    if request.method == 'GET':
+        pattern = '%' + request.args.get("pattern", "") + '%'
+        if pattern:
+            result = Tip.query.filter(Tip.body.like(pattern)).all()
+            print(Tip.query.filter(Tip.body.like('\\%' + pattern + '\\%')))
+            return jsonify([{'author': tip.author.username,
+                             'id': tip.id,
+                             'body': tip.body} for tip in result])
     return redirect(url_for('tips.get_tip'))
 
 
