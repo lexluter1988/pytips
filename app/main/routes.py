@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 from flask import g, session, jsonify
@@ -13,9 +14,16 @@ from app.main.forms import EditProfileForm, MessageForm
 from app.models import User, Tip, Message
 from app.utils.decorators import check_confirmed
 
+LOG = logging.getLogger(__name__)
+
 
 @bp.before_app_request
 def before_request():
+    # if session.get(str(request.remote_addr), None):
+    #     print('flag already set {}'.format(session.get(str(request.remote_addr))))
+    # else:
+    #     print('setting visit flag for that ip')
+    #     session[str(request.remote_addr)] = True
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
@@ -162,9 +170,9 @@ def delete(msg_id):
 
 
 @bp.route('/notifications', methods=['GET'])
-@login_required
-@check_confirmed
 def notifications():
+    if current_user.is_anonymous:
+        return jsonify([])
     notifications = current_user.notifications.all()
     return jsonify([{
         'name': n.name,

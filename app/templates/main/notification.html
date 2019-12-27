@@ -14,7 +14,7 @@ $(function() {
     setInterval(function() {
         $.ajax('{{ url_for('main.notifications') }}').done(
             function(notifications) {
-                if(notifications) {
+                if(notifications[0]) {
                     $('#notify').text('You got new message from: ' + notifications[0].data);
                     $('#notification-toast').toast('show');
                 }
