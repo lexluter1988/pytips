@@ -195,3 +195,13 @@ def like(tip_id):
 def who_liked(tip_id):
     likes = db.session.query(Like, User.username).filter_by(tip_id=tip_id).join(User, Like.user_id == User.id).all()
     return render_template('tips/tips_who_liked.html', title='Likes', likes=likes)
+
+
+@bp.route('/search')
+def search():
+    if request.method == 'GET':
+        pattern = '%' + request.args.get("pattern", "") + '%'
+        if pattern:
+            result = Tip.query.filter(Tip.body.like(pattern)).all()
+            return render_template('tips/search_results.html', title='Search Results', tips=result)
+    return redirect(url_for('tips.get_tip'))

@@ -36,19 +36,6 @@ def index():
     return redirect(url_for('tips.get_tip'))
 
 
-@bp.route('/search')
-def search():
-    if request.method == 'GET':
-        pattern = '%' + request.args.get("pattern", "") + '%'
-        if pattern:
-            result = Tip.query.filter(Tip.body.like(pattern)).all()
-            print(Tip.query.filter(Tip.body.like('\\%' + pattern + '\\%')))
-            return jsonify([{'author': tip.author.username,
-                             'id': tip.id,
-                             'body': tip.body} for tip in result])
-    return redirect(url_for('tips.get_tip'))
-
-
 @bp.route('/language/<lang>')
 def language(lang):
     session['lang'] = lang
@@ -71,14 +58,6 @@ def user(username):
     unread = [i for i in inbox if i.status == 0]
     return render_template(
         'main/user.html', user=user, tips=tips, moderation=moderation, following_posts=following_posts, unread=unread)
-
-
-@bp.before_request
-def before_request():
-    if current_user.is_authenticated:
-        current_user.last_seen = datetime.utcnow()
-        db.session.commit()
-        g.locale = str(get_locale())
 
 
 @bp.route('/edit_profile', methods=['GET', 'POST'])
