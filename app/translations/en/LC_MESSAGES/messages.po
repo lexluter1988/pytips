@@ -1,14 +1,14 @@
 # English translations for PROJECT.
-# Copyright (C) 2019 ORGANIZATION
+# Copyright (C) 2020 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-12-20 20:08+0700\n"
-"PO-Revision-Date: 2019-12-20 20:08+0700\n"
+"POT-Creation-Date: 2020-01-09 19:22+0700\n"
+"PO-Revision-Date: 2020-01-09 19:22+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
@@ -23,6 +23,7 @@ msgid "Please log in to access this page."
 msgstr ""
 
 #: app/auth/forms.py:11 app/auth/forms.py:18 app/main/forms.py:11
+#: app/templates/auth/login.html:9
 msgid "Username"
 msgstr ""
 
@@ -100,7 +101,7 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: app/main/routes.py:34
+#: app/main/routes.py:42
 msgid "Language has been changed."
 msgstr ""
 
@@ -108,19 +109,19 @@ msgstr ""
 msgid "Your changes have been saved."
 msgstr ""
 
-#: app/main/routes.py:91
+#: app/main/routes.py:93
 msgid "Your message has been sent."
 msgstr ""
 
-#: app/main/routes.py:93 app/main/routes.py:131
+#: app/main/routes.py:95 app/main/routes.py:135
 msgid "Send Message"
 msgstr ""
 
-#: app/main/routes.py:129
+#: app/main/routes.py:133
 msgid "Your reply has been sent."
 msgstr ""
 
-#: app/main/routes.py:143
+#: app/main/routes.py:147
 msgid "Message deleted"
 msgstr ""
 
@@ -132,11 +133,35 @@ msgstr ""
 msgid "Click to Register!"
 msgstr ""
 
-#: app/templates/auth/login.html:19
+#: app/templates/auth/login.html:10
+msgid "Enter username"
+msgstr ""
+
+#: app/templates/auth/login.html:11 app/templates/auth/login.html:17
+msgid "Valid."
+msgstr ""
+
+#: app/templates/auth/login.html:12 app/templates/auth/login.html:18
+msgid "Please fill out this field."
+msgstr ""
+
+#: app/templates/auth/login.html:16
+msgid "Enter password"
+msgstr ""
+
+#: app/templates/auth/login.html:22
+msgid "Remember me"
+msgstr ""
+
+#: app/templates/auth/login.html:25
+msgid "Sign in"
+msgstr ""
+
+#: app/templates/auth/login.html:27
 msgid "Forgot Your Password?"
 msgstr ""
 
-#: app/templates/auth/login.html:20
+#: app/templates/auth/login.html:28
 msgid "Click to Reset It"
 msgstr ""
 
@@ -202,12 +227,16 @@ msgstr ""
 msgid "The administrator has been notified. Sorry for the inconvenience!"
 msgstr ""
 
-#: app/templates/main/base.html:33
+#: app/templates/main/base.html:42
+msgid "Search"
+msgstr ""
+
+#: app/templates/main/base.html:49
 msgid "ru"
 msgstr ""
 
-#: app/templates/main/base.html:34
-msgid "en"
+#: app/templates/main/base.html:54
+msgid "us"
 msgstr ""
 
 #: app/templates/main/edit_profile.html:4
@@ -249,6 +278,10 @@ msgstr ""
 
 #: app/templates/main/messages.html:29
 msgid "reply"
+msgstr ""
+
+#: app/templates/main/notification.html:8
+msgid "My messages"
 msgstr ""
 
 #: app/templates/main/send_message.html:4
@@ -304,11 +337,11 @@ msgstr ""
 msgid "Edit your profile"
 msgstr ""
 
-#: app/templates/tips/tips.html:7
+#: app/templates/tips/search_results.html:8 app/templates/tips/tips.html:7
 msgid "[Post is under moderation]"
 msgstr ""
 
-#: app/templates/tips/tips.html:15
+#: app/templates/tips/search_results.html:16 app/templates/tips/tips.html:15
 msgid "follow"
 msgstr ""
 
@@ -324,66 +357,66 @@ msgstr ""
 msgid "Hashtags"
 msgstr ""
 
-#: app/tips/routes.py:75
+#: app/tips/routes.py:80
 msgid "Your tip is now live!"
 msgstr ""
 
-#: app/tips/routes.py:88
+#: app/tips/routes.py:93
 msgid "You cannot change others tips, unless you are admin!"
 msgstr ""
 
-#: app/tips/routes.py:100
+#: app/tips/routes.py:105
 msgid "Your tip has been changed!"
 msgstr ""
 
-#: app/tips/routes.py:117
+#: app/tips/routes.py:122
 msgid "Tip approved"
 msgstr ""
 
-#: app/tips/routes.py:128
+#: app/tips/routes.py:133
 msgid "You cannot delete other users tips unless you admin!"
 msgstr ""
 
-#: app/tips/routes.py:132
+#: app/tips/routes.py:137
 msgid "Tip deleted!"
 msgstr ""
 
-#: app/tips/routes.py:142 app/tips/routes.py:159
+#: app/tips/routes.py:147 app/tips/routes.py:164
 #, python-format
 msgid "User %(username)s not found."
 msgstr ""
 
-#: app/tips/routes.py:145
+#: app/tips/routes.py:150
 msgid "You cannot follow yourself!"
 msgstr ""
 
-#: app/tips/routes.py:149
+#: app/tips/routes.py:154
 #, python-format
 msgid "You are following %(username)s!"
 msgstr ""
 
-#: app/tips/routes.py:162
+#: app/tips/routes.py:167
 msgid "You cannot unfollow yourself!"
 msgstr ""
 
-#: app/tips/routes.py:166
+#: app/tips/routes.py:171
 #, python-format
 msgid "You are not following %(username)s!"
 msgstr ""
 
-#: app/tips/routes.py:176
+#: app/tips/routes.py:181
 msgid "You already liked that post! Removing like"
 msgstr ""
 
-#: app/tips/routes.py:183
+#: app/tips/routes.py:188
 msgid "You liked that post!"
 msgstr ""
 
-#: app/utils/decorators.py:12
+#: app/utils/decorators.py:15
 msgid "Please confirm your account!"
 msgstr ""
 
-#: app/utils/decorators.py:24
+#: app/utils/decorators.py:27
 msgid "Insufficient permissions!"
 msgstr ""
 
