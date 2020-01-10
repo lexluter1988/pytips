@@ -21,403 +21,403 @@ msgstr ""
 
 #: app/__init__.py:26
 msgid "Please log in to access this page."
-msgstr ""
+msgstr "Для доступа к данной странице необходимо авторизоваться"
 
 #: app/auth/forms.py:11 app/auth/forms.py:18 app/main/forms.py:11
 #: app/templates/auth/login.html:9
 msgid "Username"
-msgstr ""
+msgstr "Пользователь"
 
 #: app/auth/forms.py:12 app/auth/forms.py:20 app/auth/forms.py:42
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: app/auth/forms.py:13
 msgid "Remember Me"
-msgstr ""
+msgstr "Запомнить меня"
 
 #: app/auth/forms.py:14 app/templates/auth/login.html:4
 msgid "Sign In"
-msgstr ""
+msgstr "Войти"
 
 #: app/auth/forms.py:19 app/auth/forms.py:37
 msgid "Email"
-msgstr ""
+msgstr "Электронная почта"
 
 #: app/auth/forms.py:22 app/auth/forms.py:44
 msgid "Repeat Password"
-msgstr ""
+msgstr "Повторите пароль"
 
 #: app/auth/forms.py:23 app/templates/auth/register.html:4
 msgid "Register"
-msgstr ""
+msgstr "Зарегистрироваться"
 
 #: app/auth/forms.py:28 app/main/forms.py:23
 msgid "Please use a different username."
-msgstr ""
+msgstr "Пожалуйста используйте другой логин"
 
 #: app/auth/forms.py:33
 msgid "Please use a different email address."
-msgstr ""
+msgstr "Пожалуйста используйте другой адрес электронной почты"
 
 #: app/auth/forms.py:38 app/auth/forms.py:45
 msgid "Request Password Reset"
-msgstr ""
+msgstr "Запрос на восстановление пароля"
 
 #: app/auth/routes.py:22
 msgid "Invalid username or password"
-msgstr ""
+msgstr "Неверное имя или пароль пользователя"
 
 #: app/auth/routes.py:49
 msgid ""
 "Congratulations, you are now a registered user! But not activated yet. "
 "Check your email for confirmation link"
-msgstr ""
+msgstr "Поздравляем! Вы зарегестрированный пользователь. Ваша учетная запись еще не активирована. Пожалуйста пройдите по ссылке, полученной в письме"
 
 #: app/auth/routes.py:65
 msgid "Your account has been activated"
-msgstr ""
+msgstr "Ваш профиль бы успешно активирован"
 
 #: app/auth/routes.py:78
 msgid "Check your email for the instructions to reset your password"
-msgstr ""
+msgstr "Инструкции по восстановлению вашего пароля были высланы на вашу почту"
 
 #: app/auth/routes.py:80
 msgid "There is not such user registered"
-msgstr ""
+msgstr "Пользователь с таким именем не существует"
 
 #: app/auth/routes.py:97
 msgid "Your password has been reset."
-msgstr ""
+msgstr "Мы сбросили ваш пароль"
 
 #: app/main/forms.py:12
 msgid "About me"
-msgstr ""
+msgstr "Обо мне"
 
 #: app/main/forms.py:13 app/main/forms.py:28 app/tips/forms.py:10
 msgid "Submit"
-msgstr ""
+msgstr "Отправить"
 
 #: app/main/forms.py:27
 msgid "Message"
-msgstr ""
+msgstr "Сообщение"
 
 #: app/main/routes.py:42
 msgid "Language has been changed."
-msgstr ""
+msgstr "Язык интерфейса был изменен"
 
 #: app/main/routes.py:72
 msgid "Your changes have been saved."
-msgstr ""
+msgstr "Ваши изменения были сохранены"
 
 #: app/main/routes.py:93
 msgid "Your message has been sent."
-msgstr ""
+msgstr "Сообщение отправлено"
 
 #: app/main/routes.py:95 app/main/routes.py:135
 msgid "Send Message"
-msgstr ""
+msgstr "Отправить сообщение"
 
 #: app/main/routes.py:133
 msgid "Your reply has been sent."
-msgstr ""
+msgstr "Ваш ответ был отправлен"
 
 #: app/main/routes.py:147
 msgid "Message deleted"
-msgstr ""
+msgstr "Сообщение было удалено"
 
 #: app/templates/auth/login.html:5
 msgid "New User?"
-msgstr ""
+msgstr "Вы новый пользователь?"
 
 #: app/templates/auth/login.html:5
 msgid "Click to Register!"
-msgstr ""
+msgstr "Нажмите, чтобы зарегестрироваться!"
 
 #: app/templates/auth/login.html:10
 msgid "Enter username"
-msgstr ""
+msgstr "Введите имя пользователя"
 
 #: app/templates/auth/login.html:11 app/templates/auth/login.html:17
 msgid "Valid."
-msgstr ""
+msgstr "Негодное"
 
 #: app/templates/auth/login.html:12 app/templates/auth/login.html:18
 msgid "Please fill out this field."
-msgstr ""
+msgstr "Пожалуйста заполните это поле"
 
 #: app/templates/auth/login.html:16
 msgid "Enter password"
-msgstr ""
+msgstr "Введите пароль"
 
 #: app/templates/auth/login.html:22
 msgid "Remember me"
-msgstr ""
+msgstr "Запомнить меня"
 
 #: app/templates/auth/login.html:25
 msgid "Sign in"
-msgstr ""
+msgstr "Войти"
 
 #: app/templates/auth/login.html:27
 msgid "Forgot Your Password?"
-msgstr ""
+msgstr "Забыли пароль?"
 
 #: app/templates/auth/login.html:28
 msgid "Click to Reset It"
-msgstr ""
+msgstr "Нажмите сюда чтобы восстановить"
 
 #: app/templates/auth/registration_confirm.html:3
 msgid "To confirm your account"
-msgstr ""
+msgstr "Чтоыб подтвердить ваш профиль"
 
 #: app/templates/auth/registration_confirm.html:5
 #: app/templates/auth/reset_password.html:5
 msgid "click here"
-msgstr ""
+msgstr "нажмите сюда"
 
 #: app/templates/auth/registration_confirm.html:8
 #: app/templates/auth/reset_password.html:8
 msgid ""
 "Alternatively, you can paste the following link in your browser's address"
 " bar:"
-msgstr ""
+msgstr "Также, вы можете вставить эту ссылку в ваш браузер"
 
 #: app/templates/auth/registration_confirm.html:10
 msgid "If you have not registered in our system, simply ignore this message."
-msgstr ""
+msgstr "Если вы не зарегистрированы на сайте, просто проигнорируйте данное сообщение"
 
 #: app/templates/auth/registration_confirm.html:11
 #: app/templates/auth/reset_password.html:11
 msgid "Sincerely,"
-msgstr ""
+msgstr "Искренне,"
 
 #: app/templates/auth/registration_confirm.html:12
 #: app/templates/auth/reset_password.html:12
 msgid "The Pytips Team"
-msgstr ""
+msgstr "Команда Pytips"
 
 #: app/templates/auth/reset_password.html:3
 msgid "To reset your password"
-msgstr ""
+msgstr "Чтобы восстановить ваш пароль"
 
 #: app/templates/auth/reset_password.html:10
 msgid "If you have not requested a password reset simply ignore this message."
-msgstr ""
+msgstr "Если вы не запрашивали сброс пароля, просто проигнорируйте данное сообщение"
 
 #: app/templates/auth/reset_password_form.html:4
 msgid "Reset Your Password"
-msgstr ""
+msgstr "Сбросить ваш пароль"
 
 #: app/templates/auth/reset_password_request.html:4
 msgid "Reset Password"
-msgstr ""
+msgstr "Сбросить пароль"
 
 #: app/templates/errors/404.html:4
 msgid "File Not Found"
-msgstr ""
+msgstr "Файл не найден"
 
 #: app/templates/errors/404.html:5 app/templates/errors/500.html:6
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 #: app/templates/errors/500.html:4
 msgid "An unexpected error has occurred"
-msgstr ""
+msgstr "Возникла непредвиденная ошибка"
 
 #: app/templates/errors/500.html:5
 msgid "The administrator has been notified. Sorry for the inconvenience!"
-msgstr ""
+msgstr "Мы проинформировали администратора, извините за неполадки"
 
 #: app/templates/main/base.html:42
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: app/templates/main/base.html:49
 msgid "ru"
-msgstr ""
+msgstr "РФ"
 
 #: app/templates/main/base.html:54
 msgid "us"
-msgstr ""
+msgstr "США"
 
 #: app/templates/main/edit_profile.html:4
 msgid "Edit Profile"
-msgstr ""
+msgstr "Изменить профиль"
 
 #: app/templates/main/index.html:4
 #, python-format
 msgid "Hi, %(username)s!"
-msgstr ""
+msgstr "Здравствуйте, %(username)s!"
 
 #: app/templates/main/messages.html:5
 msgid "Inbox "
-msgstr ""
+msgstr "Входящие"
 
 #: app/templates/main/messages.html:6 app/templates/main/messages.html:35
 msgid "Sent"
-msgstr ""
+msgstr "Отправленные"
 
 #: app/templates/main/messages.html:10
 msgid "Inbox"
-msgstr ""
+msgstr "Входящие"
 
 #: app/templates/main/messages.html:14 app/templates/main/messages.html:39
 msgid "when:"
-msgstr ""
+msgstr "когда:"
 
 #: app/templates/main/messages.html:15 app/templates/main/messages.html:40
 msgid "from:"
-msgstr ""
+msgstr "от:"
 
 #: app/templates/main/messages.html:25
 msgid "mark as unread"
-msgstr ""
+msgstr "пометить как непрочитанное"
 
 #: app/templates/main/messages.html:27
 msgid "mark as read"
-msgstr ""
+msgstr "пометить как прочитанное"
 
 #: app/templates/main/messages.html:29
 msgid "reply"
-msgstr ""
+msgstr "ответить"
 
 #: app/templates/main/notification.html:8
 msgid "My messages"
-msgstr ""
+msgstr "Мои сообщения"
 
 #: app/templates/main/send_message.html:4
 #, python-format
 msgid "Send Message to %(recipient)s"
-msgstr ""
+msgstr "Отправить сообщение %(recipient)s"
 
 #: app/templates/main/user.html:8
 msgid "Send private message"
-msgstr ""
+msgstr "Отправить личное сообщение"
 
 #: app/templates/main/user.html:12
 msgid "User:"
-msgstr ""
+msgstr "Пользователь:"
 
 #: app/templates/main/user.html:13
 msgid "About:"
-msgstr ""
+msgstr "Био:"
 
 #: app/templates/main/user.html:14
 msgid "Last seen on:"
-msgstr ""
+msgstr "Последний раз активен в:"
 
 #: app/templates/main/user.html:16
 msgid "Posts:"
-msgstr ""
+msgstr "Посты:"
 
 #: app/templates/main/user.html:22
 msgid "Following:"
-msgstr ""
+msgstr "Подписки:"
 
 #: app/templates/main/user.html:28
 msgid "Post from following:"
-msgstr ""
+msgstr "Посты по подпискам:"
 
 #: app/templates/main/user.html:35
 msgid "Followers:"
-msgstr ""
+msgstr "Подписавшиеся:"
 
 #: app/templates/main/user.html:42
 msgid "On moderation:"
-msgstr ""
+msgstr "На модерации:"
 
 #: app/templates/main/user.html:45
 msgid "Approve"
-msgstr ""
+msgstr "Опубликовать"
 
 #: app/templates/main/user.html:49
 msgid "My messages "
-msgstr ""
+msgstr "Мои сообщения"
 
 #: app/templates/main/user.html:50
 msgid "Edit your profile"
-msgstr ""
+msgstr "Изменить ваш профиль"
 
 #: app/templates/tips/search_results.html:8 app/templates/tips/tips.html:7
 msgid "[Post is under moderation]"
-msgstr ""
+msgstr "[Пост на модерации]"
 
 #: app/templates/tips/search_results.html:16 app/templates/tips/tips.html:15
 msgid "follow"
-msgstr ""
+msgstr "подписаться"
 
 #: app/templates/tips/tips_by_hashtag.html:4
 msgid "Tips by hashtag "
-msgstr ""
+msgstr "Советы по хештегам"
 
 #: app/tips/forms.py:8
 msgid "Tip content"
-msgstr ""
+msgstr "Содержание совета"
 
 #: app/tips/forms.py:9
 msgid "Hashtags"
-msgstr ""
+msgstr "Хештеги"
 
 #: app/tips/routes.py:80
 msgid "Your tip is now live!"
-msgstr ""
+msgstr "Ваш совет размещен"
 
 #: app/tips/routes.py:93
 msgid "You cannot change others tips, unless you are admin!"
-msgstr ""
+msgstr "Вы не можете изменять чужие советы, если только вы не администратор"
 
 #: app/tips/routes.py:105
 msgid "Your tip has been changed!"
-msgstr ""
+msgstr "Ваш совет был изменен"
 
 #: app/tips/routes.py:122
 msgid "Tip approved"
-msgstr ""
+msgstr "Совет опубликован"
 
 #: app/tips/routes.py:133
 msgid "You cannot delete other users tips unless you admin!"
-msgstr ""
+msgstr "Вы не можете удалять чужие советы, если только вы не администратор"
 
 #: app/tips/routes.py:137
 msgid "Tip deleted!"
-msgstr ""
+msgstr "Совет удален"
 
 #: app/tips/routes.py:147 app/tips/routes.py:164
 #, python-format
 msgid "User %(username)s not found."
-msgstr ""
+msgstr "Пользователь %(username)s не найден"
 
 #: app/tips/routes.py:150
 msgid "You cannot follow yourself!"
-msgstr ""
+msgstr "Вы не можете подписаться на самого себя"
 
 #: app/tips/routes.py:154
 #, python-format
 msgid "You are following %(username)s!"
-msgstr ""
+msgstr "Вы подписались  на %(username)s!"
 
 #: app/tips/routes.py:167
 msgid "You cannot unfollow yourself!"
-msgstr ""
+msgstr "Вы не можете отписаться от самого себя!"
 
 #: app/tips/routes.py:171
 #, python-format
 msgid "You are not following %(username)s!"
-msgstr ""
+msgstr "Вы отписались от %(username)s!"
 
 #: app/tips/routes.py:181
 msgid "You already liked that post! Removing like"
-msgstr ""
+msgstr "Вам уже нравился этот пост! Отметка убрана"
 
 #: app/tips/routes.py:188
 msgid "You liked that post!"
-msgstr ""
+msgstr "Вам понравился этот пост"
 
 #: app/utils/decorators.py:15
 msgid "Please confirm your account!"
-msgstr ""
+msgstr "Пожалуйста подтвердите свой профиль"
 
 #: app/utils/decorators.py:27
 msgid "Insufficient permissions!"
-msgstr ""
+msgstr "Недостаточно прав"
 
