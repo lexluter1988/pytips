@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Length
 
+from app import db
 from app.models import User
 
 
@@ -18,7 +19,7 @@ class EditProfileForm(FlaskForm):
 
     def validate_username(self, username):
         if username.data != self.original_username:
-            user = User.query.filter_by(username=self.username.data).first()
+            user = db.session.query(User).filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError(_('Please use a different username.'))
 

@@ -11,7 +11,7 @@ from app import db
 
 @login.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    return db.session.query(User).get(int(id))
 
 
 hashtags = db.Table('hashtags_tips',
@@ -72,9 +72,9 @@ class User(UserMixin, db.Model):
         super(User, self).__init__(**kwargs)
         if self.role is None:
             if self.email in current_app.config['ADMINS']:
-                self.role = Role.query.filter_by(permissions=0xff).first()
+                self.role = db.session.query(Role).filter_by(permissions=0xff).first()
             if self.role is None:
-                self.role = Role.query.filter_by(name='User').first()
+                self.role = db.session.query(Role).filter_by(name='User').first()
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -119,7 +119,7 @@ class User(UserMixin, db.Model):
             'Administrator': 0xff
         }
         for r in roles:
-            role = Role.query.filter_by(name=r).first()
+            role = db.session.query(Role).filter_by(name=r).first()
             if role is None:
                 role = Role(name=r)
             role.permissions = roles[r]
@@ -134,7 +134,7 @@ class User(UserMixin, db.Model):
         except Exception as e:
             current_app.logger.error('Error {}'.format(e))
             return
-        return User.query.get(id)
+        return db.session.query(User).get(id)
 
 
 class Tip(db.Model):

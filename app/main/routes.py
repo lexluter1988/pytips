@@ -47,13 +47,13 @@ def language(lang):
 @login_required
 @check_confirmed
 def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    tips = Tip.query.filter(Tip.user_id == current_user.id).all()
+    user = db.session.query(User).filter_by(username=username).first_or_404()
+    tips = db.session.query(Tip).filter(Tip.user_id == current_user.id).all()
     following = list(following.id for following in current_user.followed.all())
-    following_posts = Tip.query.filter(Tip.user_id.in_(following)).all()
+    following_posts = db.session.query(Tip).filter(Tip.user_id.in_(following)).all()
     moderation = []
     if user.role.permissions == 255:
-        moderation = Tip.query.filter_by(moderated=False).all()
+        moderation = db.session.query(Tip).filter_by(moderated=False).all()
     inbox = current_user.messages_received.all()
     unread = [i for i in inbox if i.status == 0]
     return render_template(
@@ -82,7 +82,7 @@ def edit_profile():
 @login_required
 @check_confirmed
 def send_message(recipient):
-    user = User.query.filter_by(username=recipient).first_or_404()
+    user = db.session.query(User).filter_by(username=recipient).first_or_404()
     form = MessageForm()
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=user, body=form.message.data)
@@ -124,7 +124,7 @@ def mark_as(msg_id, status):
 @login_required
 @check_confirmed
 def reply(msg_id, recipient_id):
-    recipient = User.query.filter_by(id=recipient_id).first_or_404()
+    recipient = db.session.query(User).filter_by(id=recipient_id).first_or_404()
     form = MessageForm()
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=recipient, body=form.message.data, reply_id=msg_id)
@@ -140,7 +140,7 @@ def reply(msg_id, recipient_id):
 @login_required
 @check_confirmed
 def delete(msg_id):
-    message = Message.query.filter_by(id=msg_id).first()
+    message = db.session.query(Message).filter_by(id=msg_id).first()
     if message:
         db.session.delete(message)
         db.session.commit()

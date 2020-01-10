@@ -18,7 +18,7 @@ LOG = logging.getLogger(__name__)
 def _append_hashtags(tip, form):
     hashtags = re.findall(r'\#\w+', form.hashtags.data)
     for hashtag in hashtags:
-        tag = HashTag.query.filter(HashTag.tag == hashtag).first()
+        tag = db.session.query(HashTag).filter(HashTag.tag == hashtag).first()
         if not tag:
             tag = HashTag(tag=hashtag)
             db.session.add(tag)
@@ -31,7 +31,7 @@ def get_tip():
     if session.get('tips', None):
         tips = session['tips']
     else:
-        tips = Tip.query.all()
+        tips = db.session.query(Tip).all()
         random.shuffle(tips)
         # TODO: object Tip is not serializable
         # session['tips'] = tips
@@ -56,14 +56,14 @@ def get_tip_by_id(tip_id):
 
 @bp.route('/tips/get_by_hashtag/<hashtag_id>', methods=['GET'])
 def get_tips_by_hashtag(hashtag_id):
-    hashtag = HashTag.query.filter(HashTag.id == hashtag_id).first()
-    tips = Tip.query.join(hashtags).filter_by(hashtags_id=hashtag_id).all()
+    hashtag = db.session.query(HashTag).filter(HashTag.id == hashtag_id).first()
+    tips = db.session.query(Tip).join(hashtags).filter_by(hashtags_id=hashtag_id).all()
     return render_template('tips/tips_by_hashtag.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
 
 
 @bp.route('/tips/hashtags', methods=['GET'])
 def get_all_hashtags():
-    hashtags = HashTag.query.all()
+    hashtags = db.session.query(HashTag).all()
     return jsonify([hashtag.tag for hashtag in hashtags])
 
 
@@ -99,7 +99,7 @@ def edit_tip(tip_id):
         _append_hashtags(tip, form)
         hashtags_diff = list(set(hashtags_old) - set(hashtags_new))
         for hashtag in hashtags_diff:
-            tag = HashTag.query.filter(HashTag.tag == hashtag).first()
+            tag = db.session.query(HashTag).filter(HashTag.tag == hashtag).first()
             tip.hashtags.remove(tag)
         db.session.commit()
         flash(_('Your tip has been changed!'))
@@ -115,7 +115,7 @@ def edit_tip(tip_id):
 @check_confirmed
 @permissions_required(Permissions.ADMINISTER)
 def moderate_tip(tip_id):
-    tip = Tip.query.filter_by(id=tip_id).first()
+    tip = db.session.query(Tip).filter_by(id=tip_id).first()
     tip.moderated = True
     db.session.add(tip)
     db.session.commit()
@@ -127,7 +127,7 @@ def moderate_tip(tip_id):
 @login_required
 @check_confirmed
 def delete_tip(tip_id):
-    tip = Tip.query.filter_by(id=tip_id).first()
+    tip = db.session.query(Tip).filter_by(id=tip_id).first()
     if current_user.id != tip.user_id:
         if current_user.email not in current_app.config['ADMINS']:
             flash(_('You cannot delete other users tips unless you admin!'))
@@ -142,7 +142,7 @@ def delete_tip(tip_id):
 @login_required
 @check_confirmed
 def follow(username):
-    user = User.query.filter_by(username=username).first()
+    user = db.session.query(User).filter_by(username=username).first()
     if user is None:
         flash(_('User %(username)s not found.', username=username))
         return redirect(url_for('tips.get_tip'))
@@ -159,7 +159,7 @@ def follow(username):
 @login_required
 @check_confirmed
 def unfollow(username):
-    user = User.query.filter_by(username=username).first()
+    user = db.session.query(User).filter_by(username=username).first()
     if user is None:
         flash(_('User %(username)s not found.', username=username))
         return redirect(url_for('tips.get_tip'))
@@ -176,7 +176,7 @@ def unfollow(username):
 @login_required
 @check_confirmed
 def like(tip_id):
-    existing = Like.query.filter_by(user_id=current_user.id).filter_by(tip_id=tip_id).first()
+    existing = db.session.query(Like).filter_by(user_id=current_user.id).filter_by(tip_id=tip_id).first()
     if existing:
         flash(_('You already liked that post! Removing like'))
         db.session.delete(existing)
@@ -202,6 +202,6 @@ def search():
     if request.method == 'GET':
         pattern = '%' + request.args.get("pattern", "") + '%'
         if pattern:
-            result = Tip.query.filter(Tip.body.like(pattern)).all()
+            result = db.session.query(Tip).filter(Tip.body.like(pattern)).all()
             return render_template('tips/search_results.html', title='Search Results', tips=result)
     return redirect(url_for('tips.get_tip'))
