@@ -12,7 +12,7 @@
 // TODO: implement types of notifications with widgets like new like, or new message, or new follower
 $(function() {
     setInterval(function() {
-        $.ajax('{{ url_for('main.notifications') }}').done(
+        $.ajax('{{ url_for('notifications.notifications') }}').done(
             function(notifications) {
                 if(notifications[0]) {
                     $('#notify').text('You got new message from: ' + notifications[0].data);

@@ -146,15 +146,3 @@ def delete(msg_id):
         db.session.commit()
         flash(_('Message deleted'))
     return redirect(url_for('main.user', username=current_user.username))
-
-
-@bp.route('/notifications', methods=['GET'])
-def notifications():
-    if current_user.is_anonymous:
-        return jsonify([])
-    notifications = current_user.notifications.all()
-    return jsonify([{
-        'name': n.name,
-        'data': n.get_data(),
-        'timestamp': n.timestamp
-    } for n in notifications])
