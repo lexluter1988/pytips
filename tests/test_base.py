@@ -23,3 +23,8 @@ def client():
 def test_home_page(client):
     response = client.get('/tips')
     assert response.status_code == 200
+
+
+def test_notification_empty_list(client):
+    response = client.get('/notifications')
+    assert response.status_code == 200
