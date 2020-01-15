@@ -20,13 +20,13 @@
                             <b>{{  msg.body }}</b>
                         {% endif %}
                         <br>
-                        <a href="{{ url_for('main.delete', msg_id = msg.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="{{ url_for('messages.delete', msg_id = msg.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
                         {%  if msg.status == 1 %}
-                            <a href="{{ url_for('main.mark_as', msg_id = msg.id, status = 0) }}">{{ _('mark as unread') }}</a>
+                            <a href="{{ url_for('messages.mark_as', msg_id = msg.id, status = 0) }}">{{ _('mark as unread') }}</a>
                         {% else %}
-                            <a href="{{ url_for('main.mark_as', msg_id = msg.id, status = 1) }}">{{ _('mark as read') }}</a>
+                            <a href="{{ url_for('messages.mark_as', msg_id = msg.id, status = 1) }}">{{ _('mark as read') }}</a>
                         {% endif %}
-                        <a href="{{ url_for('main.reply', msg_id = msg.id, recipient_id = msg.sender_id) }}">{{ _('reply') }}</a>
+                        <a href="{{ url_for('messages.reply', msg_id = msg.id, recipient_id = msg.sender_id) }}">{{ _('reply') }}</a>
                     </div>
                 </div>
             {% endfor %}

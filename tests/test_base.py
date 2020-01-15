@@ -28,3 +28,19 @@ def test_home_page(client):
 def test_notification_empty_list(client):
     response = client.get('/notifications')
     assert response.status_code == 200
+
+
+def test_search_post(client):
+    pass
+
+
+def test_create_and_like_post(client):
+    pass
+
+
+def test_flash_messages(client):
+    pass
+
+
+def test_lang_change(client):
+    pass
