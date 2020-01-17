@@ -11,7 +11,7 @@
             <div id="tips">
                 <h2>Did you know that</h2>
                 <code>{{ tip }}</code>
-                <br><small> <b> created by: </b> <a href="{{  url_for('main.user', username=tip.author.username)  }}">{{  tip.author.username }}</a>
+                <br><small> <b> created by: </b> <img src="{{ tip.author.avatar(24) }}" alt="top"> <a href="{{  url_for('main.user', username=tip.author.username)  }}">{{  tip.author.username }}</a>
                 <a href="{{  url_for('tips.follow', username=tip.author.username)}}">{{ _('follow') }}</a> </small>
             </div>
             <div id="hashtags">

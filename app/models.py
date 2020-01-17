@@ -1,4 +1,5 @@
 import json
+from hashlib import md5
 from datetime import datetime
 from app import login
 from flask_login import UserMixin
@@ -78,6 +79,11 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def avatar(self, size):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
 
     def can(self, permissions):
         return self.role is not None and (self.role.permissions & permissions == permissions)
