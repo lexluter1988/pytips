@@ -4,13 +4,16 @@
     <h1>{{ _('Edit Profile') }}</h1>
         <div class="col-md-4">
             <form action="" method="post">
-                {{ form.hidden_tag() }}
-                {{ form.username.label }}<br>
-                {{ form.username }}<br>
-                {{ form.about_me.label }}<br>
-                {{ form.about_me }}<br>
-                <br>
-                {{ form.submit() }}
+              {{ form.hidden_tag() }}
+              <div class="form-group">
+                <label for="username">{{ _('Username') }}:</label>
+                <input type="text" class="form-control" placeholder="{{ _('Your name') }}" name="username" id="username" required>
+              </div>
+              <div class="form-group">
+                <label for="about_me">{{ _('About me') }}:</label>
+                <input type="text" class="form-control" placeholder="{{ _('Write about you something') }}" name="about_me" id="about_me" required>
+              </div>
+              <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Save') }}</button>
             </form>
         </div>
 {% endblock %}

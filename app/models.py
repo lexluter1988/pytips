@@ -196,7 +196,7 @@ class Notification(db.Model):
 class Stat(db.Model):
     __tablename__ = 'stats'
     id = db.Column(db.Integer, primary_key=True)
-    timestamp = db.Column(db.Float, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.Float, index=True, default=time)
     type = db.Column(db.Text)
 
 

@@ -4,10 +4,12 @@
     <h1>{{ _('Send Message to %(recipient)s', recipient=recipient) }}</h1>
         <div class="col-md-4">
             <form action="" method="post">
-                {{ form.hidden_tag() }} <br>
-                {{ form.message.label }} <br>
-                {{ form.message }} <br>
-                {{ form.submit() }} <br>
+              {{ form.hidden_tag() }}
+              <div class="form-group">
+                <label for="message">{{ _('Message') }}:</label>
+                <input type="text" class="form-control" placeholder="{{ _('Type your message') }}" name="message" id="message" required>
+              </div>
+              <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Sent') }}</button>
             </form>
         </div>
 {% endblock %}

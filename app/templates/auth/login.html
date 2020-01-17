@@ -3,7 +3,7 @@
 {% block app_content %}
     <h1>{{ _('Sign In') }}</h1>
     <p>{{ _('New User?') }} <a href="{{ url_for('auth.register_request') }}">{{ _('Click to Register!') }}</a></p>
-    <form action="" method="post" class="was-validated">
+    <form action="" method="post">
       {{ form.hidden_tag() }}
       <div class="form-group">
         <label for="username">{{ _('Username') }}:</label>
