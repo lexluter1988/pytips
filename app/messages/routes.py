@@ -18,7 +18,6 @@ def send_message(recipient):
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=user, body=form.message.data)
         db.session.add(msg)
-        # notification will show that new message from some user
         user.add_notification('new_message', current_user.username)
         db.session.commit()
         flash(_('Your message has been sent.'))
@@ -60,6 +59,7 @@ def reply(msg_id, recipient_id):
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=recipient, body=form.message.data, reply_id=msg_id)
         db.session.add(msg)
+        recipient.add_notification('new_message', current_user.username)
         db.session.commit()
         flash(_('Your reply has been sent.'))
         return redirect(url_for('main.user', username=current_user.username))
