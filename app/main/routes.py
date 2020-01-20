@@ -19,11 +19,15 @@ LOG = logging.getLogger(__name__)
 
 @bp.before_app_request
 def before_request():
-    # if session.get(str(request.remote_addr), None):
-    #     print('flag already set {}'.format(session.get(str(request.remote_addr))))
-    # else:
-    #     print('setting visit flag for that ip')
-    #     session[str(request.remote_addr)] = True
+    if not session.get('visits'):
+        session['visits'] = {str(request.remote_addr): True}
+    else:
+        if not session.get('visits').get(str(request.remote_addr)):
+            session['visits'][str(request.remote_addr)] = True
+
+    # TODO: periodic task to save that to db.
+    #LOG.debug('visits', len(session.get('visits')))
+
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
