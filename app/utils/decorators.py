@@ -1,6 +1,6 @@
 from functools import wraps
 
-from flask import flash, redirect, url_for
+from flask import flash, redirect, url_for, session
 from flask_babel import gettext as _
 from flask_login import current_user
 
@@ -34,10 +34,15 @@ def permissions_required(permission):
 def record_stat(type):
     def decorator(func):
         @wraps(func)
-        # TODO: statistics service should not commit to db every time
         def decorated_function(*args, **kwargs):
-            db.session.add(Stat(type=type))
-            db.session.commit()
+            print(session.get('db_stat'))
+            if not session.get('db_stat'):
+                session['db_stat'] = {func.__name__: 1}
+            else:
+                if not session.get('db_stat').get(func.__name__):
+                    session['db_stat'][func.__name__] = 1
+                else:
+                    session['db_stat'][func.__name__] += 1
             return func(*args, **kwargs)
         return decorated_function
     return decorator

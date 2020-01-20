@@ -12,7 +12,7 @@ from app import db
 from app.main import bp
 from app.main.forms import EditProfileForm
 from app.models import User, Tip
-from app.utils.decorators import check_confirmed
+from app.utils.decorators import check_confirmed, record_stat
 
 LOG = logging.getLogger(__name__)
 
@@ -50,6 +50,7 @@ def language(lang):
 @bp.route('/user/<username>')
 @login_required
 @check_confirmed
+@record_stat('test')
 def user(username):
     user = db.session.query(User).filter_by(username=username).first_or_404()
     tips = db.session.query(Tip).filter(Tip.user_id == current_user.id).all()
@@ -67,6 +68,7 @@ def user(username):
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
+@record_stat('test')
 def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
