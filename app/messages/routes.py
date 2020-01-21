@@ -22,7 +22,7 @@ def send_message(recipient):
         db.session.commit()
         flash(_('Your message has been sent.'))
         return redirect(url_for('main.user', username=recipient))
-    return render_template('main/send_message.html', title=_('Send Message'),
+    return render_template('messages/send_message.html', title=_('Send Message'),
                            form=form, recipient=recipient)
 
 
@@ -35,7 +35,7 @@ def messages():
     inbox = current_user.messages_received.all()
     unread = [i for i in inbox if i.status == 0]
     sent = current_user.messages_sent.all()
-    return render_template('main/messages.html', inbox=inbox, sent=sent, unread=unread)
+    return render_template('messages/messages.html', inbox=inbox, sent=sent, unread=unread)
 
 
 @bp.route('/messages/<msg_id>/<status>', methods=['GET'])
@@ -63,7 +63,7 @@ def reply(msg_id, recipient_id):
         db.session.commit()
         flash(_('Your reply has been sent.'))
         return redirect(url_for('main.user', username=current_user.username))
-    return render_template('main/send_message.html', title=_('Send Message'),
+    return render_template('messages/send_message.html', title=_('Send Message'),
                            form=form, recipient=recipient.username)
 
 
