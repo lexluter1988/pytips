@@ -14,6 +14,19 @@
     <h2>{{ _('About:') }} {{ user.about_me }}</h2>
     <p>{{ _('Last seen on:') }} {{ moment(user.last_seen).format('LLL') }}</p>
     {% if user == current_user %}
+    <p>{{ _('Subscriptions:') }}</p>
+        <ul>
+            <li>{{ _('News') }}
+                <a href="{{ url_for('subscriptions.subscribe', type = 'news' ) }}">subscribe</a></li>
+            <li>{{ _('Updates from following') }}
+                <a href="{{ url_for('subscriptions.subscribe', type = 'followed' ) }}">subscribe</a></li>
+            <li>{{ _('Comments') }}
+                <a href="{{ url_for('subscriptions.subscribe', type = 'comments' ) }}">subscribe</a></li>
+            <li>{{ _('Private messages') }}
+                <a href="{{ url_for('subscriptions.subscribe', type = 'messages' ) }}">subscribe</a></li>
+            <li>{{ _('Likes') }}
+                <a href="{{ url_for('subscriptions.subscribe', type = 'likes' ) }}">subscribe</a></li>
+        </ul>
     <p>{{ _('Posts:') }} {{ tips | length }}</p>
         <ul>
             {% for tip in tips %}
