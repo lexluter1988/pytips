@@ -82,3 +82,37 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('main/edit_profile.html', title='Edit Profile',
                            form=form)
+
+
+@bp.route('/follow/<username>', methods=['GET'])
+@login_required
+@check_confirmed
+def follow(username):
+    user = db.session.query(User).filter_by(username=username).first()
+    if user is None:
+        flash(_('User %(username)s not found.', username=username))
+        return redirect(url_for('tips.get_tip'))
+    if user == current_user:
+        flash(_('You cannot follow yourself!'))
+        return redirect(url_for('tips.get_tip'))
+    current_user.follow(user)
+    db.session.commit()
+    flash(_('You are following %(username)s!', username=username))
+    return redirect(url_for('tips.get_tip'))
+
+
+@bp.route('/unfollow/<username>', methods=['GET'])
+@login_required
+@check_confirmed
+def unfollow(username):
+    user = db.session.query(User).filter_by(username=username).first()
+    if user is None:
+        flash(_('User %(username)s not found.', username=username))
+        return redirect(url_for('tips.get_tip'))
+    if user == current_user:
+        flash(_('You cannot unfollow yourself!'))
+        return redirect(url_for('tips.get_tip'))
+    current_user.unfollow(user)
+    db.session.commit()
+    flash(_('You are not following %(username)s!', username=username))
+    return redirect(url_for('tips.get_tip'))

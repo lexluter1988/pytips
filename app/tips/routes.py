@@ -138,40 +138,6 @@ def delete_tip(tip_id):
     return redirect(url_for('main.user', username=current_user.username))
 
 
-@bp.route('/follow/<username>', methods=['GET'])
-@login_required
-@check_confirmed
-def follow(username):
-    user = db.session.query(User).filter_by(username=username).first()
-    if user is None:
-        flash(_('User %(username)s not found.', username=username))
-        return redirect(url_for('tips.get_tip'))
-    if user == current_user:
-        flash(_('You cannot follow yourself!'))
-        return redirect(url_for('tips.get_tip'))
-    current_user.follow(user)
-    db.session.commit()
-    flash(_('You are following %(username)s!', username=username))
-    return redirect(url_for('tips.get_tip'))
-
-
-@bp.route('/unfollow/<username>', methods=['GET'])
-@login_required
-@check_confirmed
-def unfollow(username):
-    user = db.session.query(User).filter_by(username=username).first()
-    if user is None:
-        flash(_('User %(username)s not found.', username=username))
-        return redirect(url_for('tips.get_tip'))
-    if user == current_user:
-        flash(_('You cannot unfollow yourself!'))
-        return redirect(url_for('tips.get_tip'))
-    current_user.unfollow(user)
-    db.session.commit()
-    flash(_('You are not following %(username)s!', username=username))
-    return redirect(url_for('tips.get_tip'))
-
-
 @bp.route('/like/<tip_id>', methods=['GET'])
 @login_required
 @check_confirmed
