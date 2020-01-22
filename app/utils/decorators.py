@@ -4,9 +4,6 @@ from flask import flash, redirect, url_for, session
 from flask_babel import gettext as _
 from flask_login import current_user
 
-from app import db
-from app.models import Stat
-
 
 def check_confirmed(func):
     @wraps(func)

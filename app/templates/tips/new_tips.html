@@ -5,11 +5,11 @@
               {{ form.hidden_tag() }}
               <div class="form-group">
                 <label for="tip">{{ _('Content') }}:</label>
-                <input type="text" class="form-control" placeholder="{{ _('Type you tip here') }}" name="tip" id="tip" required>
+                <input type="text" class="form-control" placeholder="{{ _('Type you tip here') }}" name="tip" id="tip" value="{{ form.tip.data }}" required>
               </div>
               <div class="form-group">
-                <label for="hashtags">{{ _('About me') }}:</label>
-                <input type="text" class="form-control" placeholder="{{ _('Hashtags') }}" name="hashtags" id="hashtags">
+                <label for="hashtags">{{ _('Hashtags') }}:</label>
+                <input type="text" class="form-control" placeholder="{{ _('Hashtags') }}" name="hashtags" id="hashtags" value="{{ form.hashtags.data }}">
               </div>
               <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Save') }}</button>
         </form>
