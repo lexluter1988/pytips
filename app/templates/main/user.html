@@ -11,6 +11,8 @@
     {% endif %}
     <h1>{{ _('User:') }} {{ user.username }}</h1>
     <img src="{{ user.avatar(128) }}" alt="top">
+    <h2>{{ _('First Name:') }} {{ user.first_name }}</h2>
+    <h2>{{ _('Last Name:') }} {{ user.last_name }}</h2>
     <h2>{{ _('About:') }} {{ user.about_me }}</h2>
     <p>{{ _('Last seen on:') }} {{ moment(user.last_seen).format('LLL') }}</p>
     {% if user == current_user %}
