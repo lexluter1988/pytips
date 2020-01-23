@@ -1,1 +1,10 @@
-<h1>{{ _('Hi, %(username)s!, you are admin', username=current_user.username) }}</h1>
+{% extends "main/base.html" %}
+
+{% block app_content %}
+    <p>Users</p>
+    <ul>
+    {%  for user in users %}
+        <li> {{ user.id }} {{ user.username }} <a href="#">edit</a> <a href="#">disable</a> <a href="#">delete</a> </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
