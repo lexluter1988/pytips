@@ -1,3 +1,5 @@
+import logging
+
 from flask import flash, redirect, render_template, url_for
 from flask_login import login_required, current_user
 from flask_babel import gettext as _
@@ -7,6 +9,8 @@ from app.messages.forms import MessageForm
 from app.messages import bp
 from app.models import User, Message
 from app.utils.decorators import check_confirmed
+
+LOG = logging.getLogger(__name__)
 
 
 @bp.route('/send_message/<recipient>', methods=['GET', 'POST'])

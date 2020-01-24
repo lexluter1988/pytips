@@ -1,7 +1,7 @@
 $( function() {
     var availableTags = [];
     $.get("/tips/hashtags", function(data, status){
-      console.log("Data: " + data + "\nStatus: " + status);
+      // console.log("Data: " + data + "\nStatus: " + status);
       availableTags = data;
     });
 

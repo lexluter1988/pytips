@@ -3,7 +3,7 @@
 {% block app_content %}
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#inbox">{{ _('Inbox ') }}<span class="badge badge-light">{{ unread|length }}</span></a>
-        <li><a data-toggle="tab" href="#sent">{{ _('Sent') }}</a></li>
+        <li><a data-toggle="tab" href="#sent">{{ _('Sent') }}<span class="badge badge-light">{{ sent|length }}</span></a></li>
     </ul>
     <div class="tab-content">
         <div id="inbox" class="tab-pane fade in active">

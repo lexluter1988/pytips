@@ -23,12 +23,14 @@ class RegistrationForm(FlaskForm):
         _l('Repeat Password'), validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField(_l('Register'))
 
-    def validate_username(self, username):
+    @staticmethod
+    def validate_username(username):
         user = db.session.query(User).filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError(_('Please use a different username.'))
 
-    def validate_email(self, email):
+    @staticmethod
+    def validate_email(email):
         user = db.session.query(User).filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError(_('Please use a different email address.'))

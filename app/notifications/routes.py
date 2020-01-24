@@ -11,9 +11,9 @@ LOG = logging.getLogger(__name__)
 def notifications():
     if current_user.is_anonymous:
         return jsonify([])
-    notifications = current_user.notifications.all()
+    items = current_user.notifications.all()
     return jsonify([{
         'name': n.name,
         'data': n.get_data(),
         'timestamp': n.timestamp
-    } for n in notifications])
+    } for n in items])

@@ -1,3 +1,5 @@
+import logging
+
 from flask import render_template, flash, redirect, url_for
 from flask import request
 from flask_babel import _
@@ -9,6 +11,8 @@ from app.auth import bp
 from app.auth.email import send_password_reset_email, send_registration_confirm_email
 from app.auth.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm
 from app.models import User
+
+LOG = logging.getLogger(__name__)
 
 
 @bp.route('/login', methods=['GET', 'POST'])

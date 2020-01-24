@@ -1,5 +1,10 @@
+import logging
+
 from app import celery, db
 from app.models import HashTag, Tip, hashtags
+
+
+LOG = logging.getLogger(__name__)
 
 
 @celery.task()

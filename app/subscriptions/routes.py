@@ -1,8 +1,12 @@
+import logging
+
 from flask import flash, redirect, url_for
 from flask_babel import gettext as _
 from flask_login import current_user
 
 from app.subscriptions import bp
+
+LOG = logging.getLogger(__name__)
 
 
 @bp.route('/subscribe/<type>')

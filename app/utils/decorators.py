@@ -1,8 +1,12 @@
+import logging
 from functools import wraps
 
 from flask import flash, redirect, url_for, session
 from flask_babel import gettext as _
 from flask_login import current_user
+
+
+LOG = logging.getLogger(__name__)
 
 
 def check_confirmed(func):
