@@ -9,6 +9,7 @@ from app.messages.forms import MessageForm
 from app.messages import bp
 from app.models import User, Message
 from app.utils.decorators import check_confirmed
+from app.utils.formatter import format_reply
 
 LOG = logging.getLogger(__name__)
 
@@ -59,6 +60,7 @@ def mark_as(msg_id, status):
 @check_confirmed
 def reply(msg_id, recipient_id):
     recipient = db.session.query(User).filter_by(id=recipient_id).first_or_404()
+    message = db.session.query(Message).filter_by(id=msg_id).first()
     form = MessageForm()
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=recipient, body=form.message.data, reply_id=msg_id)
@@ -68,7 +70,8 @@ def reply(msg_id, recipient_id):
         flash(_('Your reply has been sent.'))
         return redirect(url_for('main.user', username=current_user.username))
     return render_template('messages/send_message.html', title=_('Send Message'),
-                           form=form, recipient=recipient.username)
+                           form=form, recipient=recipient.username,
+                           message=format_reply(recipient.username, message.body))
 
 
 @bp.route('/messages/<msg_id>/delete', methods=['GET'])
