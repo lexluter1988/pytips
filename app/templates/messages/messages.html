@@ -5,6 +5,7 @@
         <li class="active"><a data-toggle="tab" href="#inbox">{{ _('Inbox ') }}<span class="badge badge-light">{{ unread|length }}</span></a>
         <li><a data-toggle="tab" href="#sent">{{ _('Sent') }}<span class="badge badge-light">{{ sent|length }}</span></a></li>
     </ul>
+    <a href="{{ url_for('messages.new_message') }}">{{ _('New Message') }}</a>
     <div class="tab-content">
         <div id="inbox" class="tab-pane fade in active">
           <h3>{{ _('Inbox') }}</h3>
@@ -20,7 +21,7 @@
                             <b>{{  msg.body }}</b>
                         {% endif %}
                         <br>
-                        <a href="{{ url_for('messages.delete', msg_id = msg.id ) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="{{ url_for('messages.delete', msg_id = msg.id ) }}"><span class="fa fa-trash-o fa-1x"></span></a>
                         {%  if msg.status == 1 %}
                             <a href="{{ url_for('messages.mark_as', msg_id = msg.id, status = 0) }}">{{ _('mark as unread') }}</a>
                         {% else %}

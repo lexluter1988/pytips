@@ -5,13 +5,34 @@ from flask_login import login_required, current_user
 from flask_babel import gettext as _
 
 from app import db
-from app.messages.forms import MessageForm
+from app.messages.forms import MessageForm, NewMessageForm
 from app.messages import bp
 from app.models import User, Message
 from app.utils.decorators import check_confirmed
 from app.utils.formatter import format_reply
 
 LOG = logging.getLogger(__name__)
+
+
+def _sent_message(author, recipient, message):
+    msg = Message(author=author, recipient=recipient, body=message)
+    db.session.add(msg)
+    recipient.add_notification('new_message', current_user.username)
+    db.session.commit()
+    flash(_('Your message has been sent.'))
+
+
+@bp.route('/message/', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def new_message():
+    form = NewMessageForm()
+    if form.validate_on_submit():
+        user = db.session.query(User).filter_by(username=form.user.data).first_or_404()
+        _sent_message(current_user, user, form.message.data)
+        return redirect(url_for('main.user', username=current_user.username))
+    return render_template('messages/new_message.html', title=_('Send Message'),
+                           form=form, recipient=current_user)
 
 
 @bp.route('/send_message/<recipient>', methods=['GET', 'POST'])
@@ -21,11 +42,7 @@ def send_message(recipient):
     user = db.session.query(User).filter_by(username=recipient).first_or_404()
     form = MessageForm()
     if form.validate_on_submit():
-        msg = Message(author=current_user, recipient=user, body=form.message.data)
-        db.session.add(msg)
-        user.add_notification('new_message', current_user.username)
-        db.session.commit()
-        flash(_('Your message has been sent.'))
+        _sent_message(current_user, user, form.message.data)
         return redirect(url_for('main.user', username=recipient))
     return render_template('messages/send_message.html', title=_('Send Message'),
                            form=form, recipient=recipient)
