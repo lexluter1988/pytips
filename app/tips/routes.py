@@ -25,6 +25,11 @@ def _append_hashtags(tip, form):
         tip.hashtags.append(tag)
 
 
+@bp.route('/feature', methods=['GET'])
+def feature():
+    return render_template('tips/feature.html', title='New Feature')
+
+
 @bp.route('/tips', methods=['GET'])
 def get_tip():
     # just example of log  LOG.error('dbg,  getting post')
