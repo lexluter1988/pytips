@@ -6,6 +6,7 @@ Babel==2.7.0
 billiard==3.6.1.0
 blinker==1.4
 celery==4.3.0
+cffi==1.13.2
 Click==7.0
 dominate==2.4.0
 elasticsearch==7.1.0
@@ -29,6 +30,8 @@ more-itertools==8.0.2
 packaging==19.2
 pluggy==0.13.1
 py==1.8.0
+pycparser==2.19
+pygit2==1.0.3
 PyJWT==1.7.1
 pyparsing==2.4.5
 pytest==5.3.1
