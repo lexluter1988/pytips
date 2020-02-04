@@ -8,6 +8,7 @@ from flask import Flask, current_app, session
 from flask import request
 from flask_babel import Babel
 from flask_babel import lazy_gettext as _l
+from flask_caching import Cache
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
@@ -33,6 +34,7 @@ celery = Celery(
         backend=Config.CELERY_RESULT_BACKEND,
         broker=Config.CELERY_BROKER_URL
     )
+cache = Cache(config={'CACHE_TYPE': 'simple'})
 
 
 def create_app(config_class=Config):
@@ -47,6 +49,7 @@ def create_app(config_class=Config):
     moment.init_app(app)
     babel.init_app(app)
     api.init_app(app)
+    cache.init_app(app)
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
@@ -109,6 +112,6 @@ def create_app(config_class=Config):
 
 @babel.localeselector
 def get_locale():
-    if session.get('lang', None):
-        return session['lang']
+    if cache.get('lang'):
+        return cache.get('lang')
     return request.accept_languages.best_match(current_app.config['LANGUAGES'])

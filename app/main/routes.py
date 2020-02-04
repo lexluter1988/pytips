@@ -8,7 +8,7 @@ from flask_babel import _
 from flask_babel import get_locale
 from flask_login import current_user, login_required
 
-from app import db
+from app import db, cache
 from app.main import bp
 from app.main.forms import EditProfileForm
 from app.models import User, Tip
@@ -42,7 +42,7 @@ def index():
 
 @bp.route('/language/<lang>')
 def language(lang):
-    session['lang'] = lang
+    cache.set('lang', lang)
     flash(_('Language has been changed.'))
     return redirect(url_for('tips.get_tip'))
 
