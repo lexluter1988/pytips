@@ -70,7 +70,11 @@
                     {% endfor %}
                 {% endif %}
                 {% endwith %}
-                {% block app_content %}{% endblock %}
+                  <div class="row">
+                    <div class="col-sm-3"> todo: user profile </div>
+                    <div class="col-sm-5">{% block app_content %}{% endblock %}</div>
+                    <div class="col-sm-3">todo: ads panel</div>
+                  </div>
             </div>
         {% endblock %}
 

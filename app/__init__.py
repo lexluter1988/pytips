@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 from logging.handlers import SMTPHandler
 
 from celery import Celery
-from flask import Flask, current_app, session
+from flask import Flask, current_app
 from flask import request
 from flask_babel import Babel
 from flask_babel import lazy_gettext as _l
