@@ -1,14 +1,10 @@
 {% extends "main/base.html" %}
 
 {% block app_content %}
-    {% if tip %}
-        {% if not tip.moderated %}
-            <div class="alert alert-dark" role="alert">
-              <strong>{{ _('Post is under moderation') }}</strong>
-            </div>
-        {% endif %}
+    {% if tips %}
+        {% for tip in tips %}
             <div class="media border p-1">
-            <img src="{{ tip.author.avatar(12) }}" class="mr-3 mt-3 rounded-circle" style="width:40px;">
+            <img src="{{ tip.author.avatar(12) }}" class="mr-2 mt-2 rounded-circle" style="width:50px;">
             <div class="media-body">
                 <h6>{{ tip.author.first_name }} {{ tip.author.last_name }}
                     <small><a href="{{  url_for('main.user', username=tip.author.username)  }}">
@@ -24,6 +20,8 @@
                 {% endif %}
             </div>
             </div>
+        {% endfor %}
+    {% endif %}
 {#        #}
 {#        <div class="panel panel-default col-md-7">#}
 {#            <div id="tips">#}
@@ -52,5 +50,4 @@
 {#                <a href="{{ url_for('tips.get_tip') }}" data-toggle="tooltip" title="Next"><i class="fa fa-arrow-circle-right fa-1x"></i></a>#}
 {#            </div>#}
 {#        </div>#}
-    {% endif %}
 {% endblock %}

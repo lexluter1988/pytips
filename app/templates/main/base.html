@@ -58,9 +58,7 @@
         </nav>
         <hr>
         {% block content %}
-            <div class="jumbotron text-center">
-                <h2>PY_TIPS - short code snippets ready to run, without long descriptions</h2>
-                <p>new tips every day</p>
+            <div class="jumbotron text-center" style="background-image: url(https://lh5.googleusercontent.com/proxy/QwWJULzZg1CQZXmwqNtiEJd-6PcQ879cTYGJ1TWGJe0lbYTkOQL_sfzjVRc20qQDKhkyVZo21mQ27s08agyD); background-size: 20%;">
             </div>
             <div class="container-fluid">
                 {% with messages = get_flashed_messages() %}
@@ -71,8 +69,31 @@
                 {% endif %}
                 {% endwith %}
                   <div class="row">
-                    <div class="col-sm-3"> todo: user profile </div>
-                    <div class="col-sm-5">{% block app_content %}{% endblock %}</div>
+                    <div class="col-sm-3">
+                        {% if not current_user.is_anonymous %}
+                        <div class="container-fluid text-center">
+                        <h2>{{ current_user.first_name }} {{ current_user.last_name }}</h2><h5>@{{ current_user.username }}</h5>
+                          <ul class="nav flex-column">
+                            <li class="nav-item">
+                              <a class="nav-link" href="#"><i class="fa fa fa-user fa-2x p-2"></i>My profile</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#"><i class="fa fa-file-text fa-2x p-2"></i>Messages</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#"><i class="fa fa-gear fa-2x p-2"></i>Settings</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#"><i class="fa fa-camera-retro fa-2x p-2"></i>Followers</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#"><i class="fa fa-heart fa-2x p-2"></i>Following</a>
+                            </li>
+                          </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-4">{% block app_content %}{% endblock %}</div>
                     <div class="col-sm-3">todo: ads panel</div>
                   </div>
             </div>

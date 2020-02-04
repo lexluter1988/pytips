@@ -28,20 +28,14 @@ def _append_hashtags(tip, form):
 @bp.route('/tips', methods=['GET'])
 def get_tip():
     # just example of log  LOG.error('dbg,  getting post')
-    if session.get('tips', None):
-        tips = session['tips']
-    else:
-        tips = db.session.query(Tip).all()
-        random.shuffle(tips)
-        # TODO: object Tip is not serializable
-        # session['tips'] = tips
-    if tips:
-        rand = random.randint(0, len(tips) - 1)
-        tip_of_the_day = tips[rand]
-        likes = tip_of_the_day.likes.all()
-    else:
-        return render_template('tips/tips.html', title='Tip of a day')
-    return render_template('tips/tips.html', title='Tip of a day', tip=tip_of_the_day, likes=likes)
+    tips = db.session.query(Tip).filter(Tip.moderated).all()
+    # TODO: object Tip is not serializable
+    # session['tips'] = tips
+    # if tips:
+    # likes = tip_of_the_day.likes.all()
+    # else:
+    #     return render_template('tips/tips.html', title='Tip of a day')
+    return render_template('tips/tips.html', title='Tip of a day', tips=tips)
 
 
 @bp.route('/tips/<tip_id>', methods=['GET'])
@@ -168,6 +162,6 @@ def search():
     if request.method == 'GET':
         pattern = '%' + request.args.get("pattern", "") + '%'
         if pattern:
-            result = db.session.query(Tip).filter(Tip.body.like(pattern)).all()
+            result = db.session.query(Tip).filter(Tip.body.like(pattern)).filter(Tip.moderated).all()
             return render_template('tips/search_results.html', title='Search Results', tips=result)
     return redirect(url_for('tips.get_tip'))
