@@ -72,8 +72,8 @@
                     <div class="col-sm-3">
                         {% if not current_user.is_anonymous %}
                         <div class="container-fluid text-center">
-                        <h2>{{ current_user.first_name }} {{ current_user.last_name }}</h2><h5>@{{ current_user.username }}</h5>
-                          <ul class="nav flex-column">
+                          <ul class="nav flex-column fixed-left" style="position: fixed; left: 8%;">
+                            <h2 >{{ current_user.first_name }} {{ current_user.last_name }}</h2><h5>@{{ current_user.username }}</h5>
                             <li class="nav-item">
                               <a class="nav-link" href="#"><i class="fa fa fa-user fa-2x p-2"></i>My profile</a>
                             </li>
@@ -98,6 +98,7 @@
                   </div>
             </div>
         {% endblock %}
+        </body>
 
 {% include 'main/footer.html' %}
 </html>

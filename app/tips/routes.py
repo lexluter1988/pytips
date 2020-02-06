@@ -1,5 +1,4 @@
 import logging
-import random
 import re
 
 from flask import render_template, flash, redirect, url_for, request, session, current_app, jsonify
@@ -101,7 +100,7 @@ def edit_tip(tip_id):
     elif request.method == 'GET':
         form.tip.data = tip.body
         form.hashtags.data = ' '.join(hashtags_old)
-    return render_template('tips/new_tips.html', title='Edit tip', form=form)
+    return render_template('tips/edit_tip.html', title='Edit tip', form=form)
 
 
 @bp.route('/tips/moderate/<tip_id>', methods=['GET'])
@@ -157,7 +156,7 @@ def who_liked(tip_id):
     return render_template('tips/tips_who_liked.html', title='Likes', likes=likes)
 
 
-@bp.route('/search')
+@bp.route('/tips/search')
 def search():
     if request.method == 'GET':
         pattern = '%' + request.args.get("pattern", "") + '%'
