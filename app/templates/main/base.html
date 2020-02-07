@@ -3,7 +3,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -75,10 +74,10 @@
                           <ul class="nav flex-column fixed-left" style="position: fixed; left: 8%;">
                             <h2 >{{ current_user.first_name }} {{ current_user.last_name }}</h2><h5>@{{ current_user.username }}</h5>
                             <li class="nav-item">
-                              <a class="nav-link" href="#"><i class="fa fa fa-user fa-2x p-2"></i>My profile</a>
+                              <a class="nav-link" href="{{ url_for('main.user', username=current_user.username) }}"><i class="fa fa fa-user fa-2x p-2"></i>My profile</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="#"><i class="fa fa-file-text fa-2x p-2"></i>Messages</a>
+                              <a class="nav-link" href="{{ url_for('messages.messages') }}"><i class="fa fa-file-text fa-2x p-2"></i>Messages</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" href="#"><i class="fa fa-gear fa-2x p-2"></i>Settings</a>
@@ -88,6 +87,9 @@
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" href="#"><i class="fa fa-heart fa-2x p-2"></i>Following</a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="{{ url_for('tips.create_tip') }}" class="btn btn-primary" style="border-radius: 12px;">{{ _('Make Post') }}</a>
                             </li>
                           </ul>
                         </div>

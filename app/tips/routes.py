@@ -26,14 +26,12 @@ def _append_hashtags(tip, form):
 
 @bp.route('/tips', methods=['GET'])
 def get_tip():
-    # just example of log  LOG.error('dbg,  getting post')
-    tips = db.session.query(Tip).filter(Tip.moderated).all()
+    tips = db.session.query(Tip).filter(Tip.moderated).order_by(Tip.timestamp.desc()).all()
+    for tip in tips:
+        #TODO: find join like #tips = db.session.query(Tip).filter(Tip.moderated).join(Like, Tip.user_id == User.id).order_by(Tip.timestamp.desc()).all()
+        tip.who_liked = db.session.query(Like, User.username).filter_by(tip_id=tip.id).join(User, Like.user_id == User.id).all()
     # TODO: object Tip is not serializable
     # session['tips'] = tips
-    # if tips:
-    # likes = tip_of_the_day.likes.all()
-    # else:
-    #     return render_template('tips/tips.html', title='Tip of a day')
     return render_template('tips/tips.html', title='Tip of a day', tips=tips)
 
 
@@ -51,7 +49,7 @@ def get_tip_by_id(tip_id):
 def get_tips_by_hashtag(hashtag_id):
     hashtag = db.session.query(HashTag).filter(HashTag.id == hashtag_id).first()
     tips = db.session.query(Tip).join(hashtags).filter_by(hashtags_id=hashtag_id).all()
-    return render_template('tips/tips_by_hashtag.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
+    return render_template('tips/tips.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
 
 
 @bp.route('/tips/hashtags', methods=['GET'])

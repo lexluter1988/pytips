@@ -2,6 +2,11 @@
 
 {% block app_content %}
     {% if tips %}
+        {% if hashtag %}
+            <h2>Tips by HashTag {{ hashtag }}</h2>
+        {% else %}
+            <h2> Feed </h2>
+        {% endif %}
         {% for tip in tips %}
             <div class="media border p-1">
             <img src="{{ tip.author.avatar(12) }}" class="mr-2 mt-2 rounded-circle" style="width:50px;">
@@ -12,7 +17,15 @@
                         {{ moment(tip.timestamp).fromNow() }}
                     </small>
                 </h6>
-                <p><code>{{ tip }}</code></p>
+                <p2><code>{{ tip }}</code></p2>
+                <div id="navigation" class="panel panel-default col-md-4">
+                {% if tip.who_liked %}
+                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart fa-1x"></i></a>
+                    <a href="{{  url_for('tips.who_liked', tip_id=tip.id) }}"><span class="badge badge-light">{{ tip.who_liked|length }}</span></a>
+                {% else %}
+                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart-o fa-1x"></i></a>
+                {% endif %}
+                </div>
                 {% if tip.hashtags %}
                     {% for hashtag in tip.hashtags %}
                         <a href="{{ url_for('tips.get_tips_by_hashtag', hashtag_id=hashtag.id) }}">{{ hashtag.tag }}</a>

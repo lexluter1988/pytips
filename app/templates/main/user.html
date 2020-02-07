@@ -41,13 +41,6 @@
                 <li>{{ follow.username }}</li>
             {% endfor %}
         </ul>
-        <p>{{ _('Post from following:') }}</p>
-        <ul>
-            {% for following_post in following_posts %}
-                {{ following_post.author.username }}
-                <li>{{ following_post.body }}</li>
-            {% endfor %}
-        </ul>
     <p>{{ _('Followers:') }}</p>
         <ul>
             {% for follower in user.followers %}
