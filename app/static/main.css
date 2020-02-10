@@ -1,3 +1,38 @@
 .media:hover {
   background-color: #f3f9fc;
 }
+
+#icrepost {
+    color: #dee4e7;
+}
+
+#icrepost:hover {
+    color: #e9eff2;
+    /*color: #f3f9fc;*/
+    /*background-color: #ccd2d5;*/
+    /*border-radius: 30px;*/
+}
+
+#iclike {
+    color: #dee4e7;
+}
+
+#iclike:hover {
+    color: #e9eff2;
+}
+
+#iccomment {
+    color: #dee4e7;
+}
+
+#iccomment:hover {
+    color: #e9eff2;
+}
+
+#iclink {
+    color: #dee4e7;
+}
+
+#iclink:hover {
+    color: #e9eff2;
+}

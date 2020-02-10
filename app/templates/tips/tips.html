@@ -18,19 +18,25 @@
                     </small>
                 </h6>
                 <p2><code>{{ tip }}</code></p2>
-                <div id="navigation" class="panel panel-default col-md-4">
-                {% if tip.who_liked %}
-                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart fa-1x"></i></a>
-                    <a href="{{  url_for('tips.who_liked', tip_id=tip.id) }}"><span class="badge badge-light">{{ tip.who_liked|length }}</span></a>
-                {% else %}
-                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart-o fa-1x"></i></a>
-                {% endif %}
-                </div>
                 {% if tip.hashtags %}
                     {% for hashtag in tip.hashtags %}
                         <a href="{{ url_for('tips.get_tips_by_hashtag', hashtag_id=hashtag.id) }}">{{ hashtag.tag }}</a>
                     {% endfor %}
                 {% endif %}
+                <div id="navigation" class="panel panel-default ">
+                {% if tip.who_liked %}
+                    <div class="row p-3">
+                      <div class="col"><a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart fa-2x" id="iclike"></i></a>
+                          <a href="{{  url_for('tips.who_liked', tip_id=tip.id) }}"><span class="badge badge-light">{{ tip.who_liked|length }}</span></a>
+                      </div>
+                      <div class="col"><div class="col"><a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Comment"><i class="fa fa-comment-o fa-2x" id="iccomment"></i></a></div></div>
+                      <div class="col"><a href="#" data-toggle="tooltip" title="Repost"><i class="fa fa-paper-plane-o fa-2x" id="icrepost"></i></a></div>
+                      <div class="col"><a href="#" data-toggle="tooltip" title="Link"><i class="fa fa-bookmark-o fa-2x" id="iclink"></i></a></div>
+                    </div>
+                {% else %}
+                    <a href="{{  url_for('tips.like', tip_id=tip.id) }}" data-toggle="tooltip" title="Like"><i class="fa fa-heart-o fa-2x"></i></a>
+                {% endif %}
+                </div>
             </div>
             </div>
         {% endfor %}
