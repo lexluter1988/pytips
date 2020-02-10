@@ -9,7 +9,7 @@
         {% endif %}
         {% for tip in tips %}
             <div class="media border p-1">
-            <img src="{{ tip.author.avatar(12) }}" class="mr-2 mt-2 rounded-circle" style="width:50px;">
+            <img src="{{ tip.author.avatar(12) }}" class="ml-2 mr-3 mt-1 rounded-circle" style="width:50px;">
             <div class="media-body">
                 <h6>{{ tip.author.first_name }} {{ tip.author.last_name }}
                     <small><a href="{{  url_for('main.user', username=tip.author.username)  }}">

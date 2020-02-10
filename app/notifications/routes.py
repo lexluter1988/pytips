@@ -2,6 +2,7 @@ import logging
 
 from flask import jsonify
 from flask_login import current_user
+
 from app.notifications import bp
 
 LOG = logging.getLogger(__name__)

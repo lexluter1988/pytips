@@ -1,5 +1,6 @@
-from flask import has_request_context, request
 import logging
+
+from flask import has_request_context, request
 
 
 class RequestFormatter(logging.Formatter):

@@ -1,12 +1,12 @@
 import logging
 
 from flask import flash, redirect, render_template, url_for
-from flask_login import login_required, current_user
 from flask_babel import gettext as _
+from flask_login import login_required, current_user
 
 from app import db
-from app.messages.forms import MessageForm, NewMessageForm
 from app.messages import bp
+from app.messages.forms import MessageForm, NewMessageForm
 from app.models import User, Message
 from app.utils.decorators import check_confirmed
 from app.utils.formatter import format_reply

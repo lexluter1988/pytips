@@ -8,13 +8,13 @@ from flask import Flask, current_app
 from flask import request
 from flask_babel import Babel
 from flask_babel import lazy_gettext as _l
+from flask_bootstrap import Bootstrap
 from flask_caching import Cache
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
-from flask_bootstrap import Bootstrap
 
 from app.api.v1.resources import api
 from app.logger import RequestFormatter

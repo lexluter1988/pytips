@@ -1,7 +1,7 @@
 import logging
 import re
 
-from flask import render_template, flash, redirect, url_for, request, session, current_app, jsonify
+from flask import render_template, flash, redirect, url_for, request, current_app, jsonify
 from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
