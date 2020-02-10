@@ -1,0 +1,3 @@
+schema = {
+    'admin': ['GET']
+          }
