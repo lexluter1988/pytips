@@ -10,6 +10,7 @@ from app.models import Tip, HashTag, hashtags, User, Like, Permissions
 from app.tips import bp
 from app.tips.forms import TipForm
 from app.utils.decorators import check_confirmed, permissions_required
+from app.utils import query
 
 LOG = logging.getLogger(__name__)
 
@@ -17,7 +18,7 @@ LOG = logging.getLogger(__name__)
 def _append_hashtags(tip, form):
     hashtags = re.findall(r'\#\w+', form.hashtags.data)
     for hashtag in hashtags:
-        tag = db.session.query(HashTag).filter(HashTag.tag == hashtag).first()
+        tag = query.get_hashtag(hashtag)
         if not tag:
             tag = HashTag(tag=hashtag)
             db.session.add(tag)
@@ -26,10 +27,10 @@ def _append_hashtags(tip, form):
 
 @bp.route('/tips', methods=['GET'])
 def get_tip():
-    tips = db.session.query(Tip).filter(Tip.moderated).order_by(Tip.timestamp.desc()).all()
+    tips = query.tips_all()
     for tip in tips:
         #TODO: find join like #tips = db.session.query(Tip).filter(Tip.moderated).join(Like, Tip.user_id == User.id).order_by(Tip.timestamp.desc()).all()
-        tip.who_liked = db.session.query(Like, User.username).filter_by(tip_id=tip.id).join(User, Like.user_id == User.id).all()
+        tip.who_liked = query.who_liked(tip)
     # TODO: object Tip is not serializable
     # session['tips'] = tips
     return render_template('tips/tips.html', title='Tip of a day', tips=tips)
@@ -37,8 +38,8 @@ def get_tip():
 
 @bp.route('/tips/<tip_id>', methods=['GET'])
 def get_tip_by_id(tip_id):
-    tip = db.session.query(Tip).filter(Tip.id == tip_id).first()
-    tip.who_liked = db.session.query(Like, User.username).filter_by(tip_id=tip.id).join(User, Like.user_id == User.id).all()
+    tip = query.tip_by_id(tip_id)
+    tip.who_liked = query.who_liked(tip)
     return render_template('tips/tips.html', title='Tip of a day', tips=[tip])
 
 
@@ -46,20 +47,20 @@ def get_tip_by_id(tip_id):
 def get_tip_by_user_id(user_id):
     tips = db.session.query(Tip).filter(Tip.user_id == user_id).order_by(Tip.timestamp.desc()).all()
     for tip in tips:
-        tip.who_liked = db.session.query(Like, User.username).filter_by(tip_id=tip.id).join(User, Like.user_id == User.id).all()
+        tip.who_liked = query.who_liked(tip)
     return render_template('tips/tips.html', title='Tip of a day', tips=tips)
 
 
 @bp.route('/tips/get_by_hashtag/<hashtag_id>', methods=['GET'])
 def get_tips_by_hashtag(hashtag_id):
-    hashtag = db.session.query(HashTag).filter(HashTag.id == hashtag_id).first()
-    tips = db.session.query(Tip).join(hashtags).filter_by(hashtags_id=hashtag_id).all()
+    hashtag = query.get_hashtag_by_id(hashtag_id)
+    tips = query.get_tips_by_hashtag_id(hashtag_id)
     return render_template('tips/tips.html', title='Tips by hashtag', tips=tips, hashtag=hashtag)
 
 
 @bp.route('/tips/hashtags', methods=['GET'])
 def get_all_hashtags():
-    hashtags = db.session.query(HashTag).all()
+    hashtags = query.get_hashtags()
     return jsonify([hashtag.tag for hashtag in hashtags])
 
 
@@ -83,7 +84,7 @@ def create_tip():
 @check_confirmed
 def edit_tip(tip_id):
     form = TipForm()
-    tip = db.session.query(Tip).filter(Tip.id == tip_id).first()
+    tip = query.tip_by_id(tip_id)
     if current_user.id != tip.user_id:
         if current_user.email not in current_app.config['ADMINS']:
             flash(_('You cannot change others tips, unless you are admin!'))
@@ -95,7 +96,7 @@ def edit_tip(tip_id):
         _append_hashtags(tip, form)
         hashtags_diff = list(set(hashtags_old) - set(hashtags_new))
         for hashtag in hashtags_diff:
-            tag = db.session.query(HashTag).filter(HashTag.tag == hashtag).first()
+            tag = query.get_hashtag(hashtag)
             tip.hashtags.remove(tag)
         db.session.commit()
         flash(_('Your tip has been changed!'))
@@ -111,7 +112,7 @@ def edit_tip(tip_id):
 @check_confirmed
 @permissions_required(Permissions.ADMINISTER)
 def moderate_tip(tip_id):
-    tip = db.session.query(Tip).filter_by(id=tip_id).first()
+    tip = query.tip_by_id(tip_id)
     tip.moderated = True
     db.session.add(tip)
     db.session.commit()
@@ -123,7 +124,7 @@ def moderate_tip(tip_id):
 @login_required
 @check_confirmed
 def delete_tip(tip_id):
-    tip = db.session.query(Tip).filter_by(id=tip_id).first()
+    tip = query.tip_by_id(tip_id)
     if current_user.id != tip.user_id:
         if current_user.email not in current_app.config['ADMINS']:
             flash(_('You cannot delete other users tips unless you admin!'))
@@ -138,7 +139,7 @@ def delete_tip(tip_id):
 @login_required
 @check_confirmed
 def like(tip_id):
-    existing = db.session.query(Like).filter_by(user_id=current_user.id).filter_by(tip_id=tip_id).first()
+    existing = query.existing_likes(tip_id)
     if existing:
         flash(_('You already liked that post! Removing like'))
         db.session.delete(existing)
@@ -155,7 +156,7 @@ def like(tip_id):
 @login_required
 @check_confirmed
 def who_liked(tip_id):
-    likes = db.session.query(Like, User.username).filter_by(tip_id=tip_id).join(User, Like.user_id == User.id).all()
+    likes = query.likes(tip_id)
     return render_template('tips/tips_who_liked.html', title='Likes', likes=likes)
 
 
@@ -164,6 +165,6 @@ def search():
     if request.method == 'GET':
         pattern = '%' + request.args.get("pattern", "") + '%'
         if pattern:
-            result = db.session.query(Tip).filter(Tip.body.like(pattern)).order_by(Tip.timestamp.desc()).filter(Tip.moderated).all()
+            result = query.search_tip(pattern)
             return render_template('tips/search_results.html', title='Search Results', tips=result)
     return redirect(url_for('tips.get_tip'))
