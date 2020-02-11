@@ -17,7 +17,7 @@
                         {{ moment(tip.timestamp).fromNow() }}
                     </small>
                 </h6><br>
-                <p2><code>{{ tip }}</code></p2>
+                <p2><code>{{ tip | urlize(40, true) }}</code></p2>
                 {% if tip.hashtags %}
                     {% for hashtag in tip.hashtags %}
                         <a href="{{ url_for('tips.get_tips_by_hashtag', hashtag_id=hashtag.id) }}">{{ hashtag.tag }}</a>
