@@ -38,11 +38,16 @@ def get_tip():
 @bp.route('/tips/<tip_id>', methods=['GET'])
 def get_tip_by_id(tip_id):
     tip = db.session.query(Tip).filter(Tip.id == tip_id).first()
-    if tip:
-        likes = tip.likes.all()
-    else:
-        return render_template('tips/tips.html', title='Tip of a day')
-    return render_template('tips/tips.html', title='Tip of a day', tip=tip, likes=likes)
+    tip.who_liked = db.session.query(Like, User.username).filter_by(tip_id=tip.id).join(User, Like.user_id == User.id).all()
+    return render_template('tips/tips.html', title='Tip of a day', tips=[tip])
+
+
+@bp.route('/tips/get_by_user_id/<user_id>', methods=['GET'])
+def get_tip_by_user_id(user_id):
+    tips = db.session.query(Tip).filter(Tip.user_id == user_id).order_by(Tip.timestamp.desc()).all()
+    for tip in tips:
+        tip.who_liked = db.session.query(Like, User.username).filter_by(tip_id=tip.id).join(User, Like.user_id == User.id).all()
+    return render_template('tips/tips.html', title='Tip of a day', tips=tips)
 
 
 @bp.route('/tips/get_by_hashtag/<hashtag_id>', methods=['GET'])
@@ -159,6 +164,6 @@ def search():
     if request.method == 'GET':
         pattern = '%' + request.args.get("pattern", "") + '%'
         if pattern:
-            result = db.session.query(Tip).filter(Tip.body.like(pattern)).filter(Tip.moderated).all()
+            result = db.session.query(Tip).filter(Tip.body.like(pattern)).order_by(Tip.timestamp.desc()).filter(Tip.moderated).all()
             return render_template('tips/search_results.html', title='Search Results', tips=result)
     return redirect(url_for('tips.get_tip'))

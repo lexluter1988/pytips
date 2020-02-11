@@ -10,13 +10,13 @@
         {% for tip in tips %}
             <div class="media border p-1">
             <img src="{{ tip.author.avatar(12) }}" class="ml-2 mr-3 mt-1 rounded-circle" style="width:50px;">
-            <div class="media-body">
-                <h6>{{ tip.author.first_name }} {{ tip.author.last_name }}
+            <div class="media-body" onclick="location.href='{{ url_for('tips.get_tip_by_id', tip_id = tip.id) }}';" >
+                <a href="{{ url_for('tips.get_tip_by_user_id', user_id=tip.user_id) }}"><h6>{{ tip.author.first_name }} {{ tip.author.last_name }}</h6></a>
                     <small><a href="{{  url_for('main.user', username=tip.author.username)  }}">
                         @{{ tip.author.username }}</a>
                         {{ moment(tip.timestamp).fromNow() }}
                     </small>
-                </h6>
+                </h6><br>
                 <p2><code>{{ tip }}</code></p2>
                 {% if tip.hashtags %}
                     {% for hashtag in tip.hashtags %}
