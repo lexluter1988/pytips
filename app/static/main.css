@@ -36,3 +36,17 @@
 #iclink:hover {
     color: #e9eff2;
 }
+
+
+body {margin:0}
+
+.badge {
+/*    font-size: 10px;*/
+    color: #a6a5a4;
+    margin: 0;
+    padding: 0;
+}
+
+/*.badge:hover {*/
+/*    color: #e9eff2;*/
+/*}*/

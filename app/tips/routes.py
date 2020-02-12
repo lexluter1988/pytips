@@ -6,7 +6,7 @@ from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
 from app import db
-from app.models import Tip, HashTag, hashtags, User, Like, Permissions
+from app.models import Tip, HashTag, Like, Permissions
 from app.tips import bp
 from app.tips.forms import TipForm
 from app.utils.decorators import check_confirmed, permissions_required
@@ -29,10 +29,7 @@ def _append_hashtags(tip, form):
 def get_tip():
     tips = query.tips_all()
     for tip in tips:
-        #TODO: find join like #tips = db.session.query(Tip).filter(Tip.moderated).join(Like, Tip.user_id == User.id).order_by(Tip.timestamp.desc()).all()
         tip.who_liked = query.who_liked(tip)
-    # TODO: object Tip is not serializable
-    # session['tips'] = tips
     return render_template('tips/tips.html', title='Tip of a day', tips=tips)
 
 

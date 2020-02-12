@@ -22,7 +22,7 @@
           <ul class="navbar-nav">
             {% if current_user.is_anonymous %}
             <li class="nav-item ml-auto">
-                <a href="{{ url_for('auth.login') }}"><span class="fa fa-user fa-1x"></span></a>
+                <a href="{{ url_for('auth.login') }}">login  <span class="fa fa-user fa-1x"></span></a>
             </li>
             {% else %}
             <li class="nav-item px-1">
