@@ -2,18 +2,16 @@
 
 {% block app_content %}
     <h1>{{ _('Send Message to %(recipient)s', recipient=recipient) }}</h1>
-        <div class="col-md-4">
-            <form action="" method="post">
-              {{ form.hidden_tag() }}
-              <div class="form-group">
-                <label for="message">{{ _('Message') }}:</label>
-                <textarea class="form-control" rows="5" type="text" placeholder="{{ _('Type your message') }}" name="message" id="message" required>
-                    {% if message %}
-                    {{ message }}
-                    {% endif %}
-                </textarea>
-              </div>
-              <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Sent') }}</button>
-            </form>
-        </div>
+        <form action="" method="post">
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            <label for="message">{{ _('Message') }}:</label>
+            <textarea class="form-control" rows="5" type="text" placeholder="{{ _('Type your message') }}" name="message" id="message" required>
+                {% if message %}
+                {{ message }}
+                {% endif %}
+            </textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Sent') }}</button>
+        </form>
 {% endblock %}

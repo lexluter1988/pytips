@@ -9,7 +9,7 @@ from app.messages import bp
 from app.messages.forms import MessageForm, NewMessageForm
 from app.models import User, Message
 from app.utils.decorators import check_confirmed
-from app.utils.formatter import format_reply
+
 
 LOG = logging.getLogger(__name__)
 
@@ -88,7 +88,7 @@ def reply(msg_id, recipient_id):
         return redirect(url_for('main.user', username=current_user.username))
     return render_template('messages/send_message.html', title=_('Send Message'),
                            form=form, recipient=recipient.username,
-                           message=format_reply(recipient.username, message.body))
+                           message=message)
 
 
 @bp.route('/messages/<msg_id>/delete', methods=['GET'])
@@ -100,4 +100,4 @@ def delete(msg_id):
         db.session.delete(message)
         db.session.commit()
         flash(_('Message deleted'))
-    return redirect(url_for('main.user', username=current_user.username))
+    return redirect(url_for('messages.messages'))
