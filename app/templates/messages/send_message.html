@@ -6,11 +6,7 @@
           {{ form.hidden_tag() }}
           <div class="form-group">
             <label for="message">{{ _('Message') }}:</label>
-            <textarea class="form-control" rows="5" type="text" placeholder="{{ _('Type your message') }}" name="message" id="message" required>
-                {% if message %}
-                {{ message }}
-                {% endif %}
-            </textarea>
+            <textarea class="form-control" type="text" placeholder="{{ _('Type your message') }}" name="message" id="message" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Sent') }}</button>
         </form>

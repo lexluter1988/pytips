@@ -2,6 +2,7 @@ import os
 
 import pytest
 
+
 from app import create_app, db
 from app.models import User, Tip
 from config import basedir
@@ -75,13 +76,19 @@ def test_create_post_with_user(client):
     assert b'Your tip is now live!' in response.data
 
 
+def test_get_hashtags(client):
+    response = client.get('/tips/hashtags')
+    assert response.status_code == 200
+
+
 def test_notification_empty_list(client):
     response = client.get('/notifications')
     assert response.status_code == 200
 
 
 def test_search_post(client):
-    pass
+    response = client.get('/tips/search')
+    assert b'hello there' in response.data
 
 
 def test_create_and_like_post(client):

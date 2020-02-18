@@ -2,26 +2,24 @@
 
 {% block app_content %}
     <h1>{{ _('Edit Profile') }}</h1>
-        <div class="col-md-4">
-            <form action="" method="post">
-              {{ form.hidden_tag() }}
-              <div class="form-group">
-                <label for="username">{{ _('Username') }}:</label>
-                <input type="text" class="form-control" placeholder="{{ _('Your name') }}" name="username" id="username" value="{{ form.username.data }}" disabled>
-              </div>
-              <div class="form-group">
-                <label for="first_name">{{ _('First Name') }}:</label>
-                <input type="text" class="form-control" placeholder="{{ _('Your First Name') }}" name="first_name" id="first_name" value="{{ form.first_name.data }}">
-              </div>
-              <div class="form-group">
-                <label for="last_name">{{ _('Last Name') }}:</label>
-                <input type="text" class="form-control" placeholder="{{ _('Your Last Name') }}" name="last_name" id="last_name" value="{{ form.last_name.data }}" required>
-              </div>
-              <div class="form-group">
-                <label for="about_me">{{ _('About me') }}:</label>
-                <input type="text" class="form-control" placeholder="{{ _('Write about you something') }}" name="about_me" id="about_me" value="{{ form.about_me.data }}" required>
-              </div>
-              <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Save') }}</button>
-            </form>
-        </div>
+        <form action="" method="post">
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            <label for="username">{{ _('Username') }}:</label>
+            <input type="text" class="form-control" placeholder="{{ _('Your name') }}" name="username" id="username" value="{{ form.username.data }}" disabled>
+          </div>
+          <div class="form-group">
+            <label for="first_name">{{ _('First Name') }}:</label>
+            <input type="text" class="form-control" placeholder="{{ _('Your First Name') }}" name="first_name" id="first_name" value="{{ form.first_name.data }}">
+          </div>
+          <div class="form-group">
+            <label for="last_name">{{ _('Last Name') }}:</label>
+            <input type="text" class="form-control" placeholder="{{ _('Your Last Name') }}" name="last_name" id="last_name" value="{{ form.last_name.data }}" required>
+          </div>
+          <div class="form-group">
+            <label for="about_me">{{ _('About me') }}:</label>
+            <input type="text" class="form-control" placeholder="{{ _('Write about you something') }}" name="about_me" id="about_me" value="{{ form.about_me.data }}" required>
+          </div>
+          <button type="submit" class="btn btn-primary" name="submit" id="submit">{{ _('Save') }}</button>
+        </form>
 {% endblock %}
