@@ -34,6 +34,8 @@ def client():
     ctx = app.app_context()
     ctx.push()
     db.create_all()
+
+    User.insert_roles()
     u = User(username='smith', email='smith@example.com', confirmed=True)
     u.set_password('1q2w3e')
 
@@ -42,7 +44,7 @@ def client():
     db.session.add(u)
     db.session.commit()
 
-    yield client  # this is where the testing happens!
+    yield client
     db.session.remove()
     db.drop_all()
     os.remove(os.path.join(basedir, 'data-test.sqlite'))
@@ -58,6 +60,7 @@ def test_home_page(client):
 def test_login_logout(client):
     response = login(client, 'smith', '1q2w3e')
     assert response.status_code == 200
+    assert b'My profile' in response.data
 
 
 def test_create_post_no_user(client):
@@ -82,7 +85,7 @@ def test_get_hashtags(client):
 
 
 def test_notification_empty_list(client):
-    response = client.get('/notifications')
+    response = client.get('/notifications', follow_redirects=True)
     assert response.status_code == 200
 
 
@@ -100,4 +103,5 @@ def test_flash_messages(client):
 
 
 def test_lang_change(client):
-    pass
+    response = client.get('/language/en')
+    assert b'Language has been changed.' in response.data
