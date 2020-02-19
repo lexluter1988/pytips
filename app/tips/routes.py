@@ -1,7 +1,8 @@
 import logging
 import re
-
-from flask import render_template, flash, redirect, url_for, request, current_app, jsonify
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from flask import render_template, flash, redirect, url_for, request, current_app, jsonify, Response
 from flask_babel import gettext as _
 from flask_login import current_user, login_required
 
@@ -165,3 +166,25 @@ def search():
             result = query.search_tip(pattern)
             return render_template('tips/search_results.html', title='Search Results', tips=result)
     return redirect(url_for('tips.get_tip'))
+
+
+@bp.route('/tips/download/<tip_id>')
+def download(tip_id):
+    tip = query.tip_by_id(tip_id)
+    response = Response(content_type='application/pdf')
+    response.headers['Content-Disposition'] = 'inline; filename="mypdf.pdf"'
+
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer)
+
+    # Start writing the PDF here
+    p.drawString(100, 100, tip.body)
+    # End writing
+
+    p.showPage()
+    p.save()
+
+    pdf = buffer.getvalue()
+    buffer.close()
+
+    return redirect(url_for('static', filename='masteringopenstack.pdf'))
