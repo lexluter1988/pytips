@@ -105,19 +105,6 @@ def edit_tip(tip_id):
     return render_template('tips/edit_tip.html', title='Edit tip', form=form)
 
 
-@bp.route('/tips/moderate/<tip_id>', methods=['GET'])
-@login_required
-@check_confirmed
-@permissions_required(Permissions.ADMINISTER)
-def moderate_tip(tip_id):
-    tip = query.tip_by_id(tip_id)
-    tip.moderated = True
-    db.session.add(tip)
-    db.session.commit()
-    flash(_('Tip approved'))
-    return redirect(url_for('main.user', username=current_user.username))
-
-
 @bp.route('/tips/delete/<tip_id>', methods=['GET'])
 @login_required
 @check_confirmed

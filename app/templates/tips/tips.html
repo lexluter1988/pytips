@@ -8,7 +8,6 @@
             <h2> Feed </h2>
         {% endif %}
         {% for tip in tips %}
-            <a href="{{ url_for('tips.download', tip_id=tip.id) }}" target="blank">download post</a>
             <div class="media border-bottom-0 border-top-0 p-1">
             <img src="{{ tip.author.avatar(12) }}" class="ml-2 mr-3 mt-1 rounded-circle" style="width:50px;">
             <div class="media-body" onclick="location.href='{{ url_for('tips.get_tip_by_id', tip_id = tip.id) }}';" >

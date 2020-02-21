@@ -154,7 +154,7 @@ class Tip(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(256))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    moderated = db.Column(db.Boolean, default=False)
+    moderated = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     hashtags = db.relationship('HashTag', secondary=hashtags, lazy='subquery', backref=db.backref('tips', lazy=True))
     likes = db.relationship('Like', backref='likes', lazy='dynamic')
