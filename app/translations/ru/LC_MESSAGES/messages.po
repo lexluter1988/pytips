@@ -233,12 +233,12 @@ msgid "Search"
 msgstr "Поиск"
 
 #: app/templates/main/base.html:49
-msgid "ru"
-msgstr "РФ"
+msgid "russian"
+msgstr "русский"
 
 #: app/templates/main/base.html:54
-msgid "us"
-msgstr "США"
+msgid "english"
+msgstr "английский"
 
 #: app/templates/main/edit_profile.html:4
 msgid "Edit Profile"

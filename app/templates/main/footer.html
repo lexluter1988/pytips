@@ -1,8 +1,16 @@
 <footer>
   <div class="container">
   <!-- Copyright -->
-  <div class="footer text-center">© 2020 Copyright:
+  <div class="footer text-center">
+      © 2020 Copyright:
     <a href="#"> Pytips Team</a>
+            <a href="{{ url_for('main.language', lang='ru') }}">
+                <small>{{ _('russian') }}</small>
+
+            </a>
+            <a href="{{ url_for('main.language', lang='en') }}">
+                <small>{{ _('english') }}</small>
+            </a>
    <div>
     <a href="#"><i class="fa fa-facebook"> </i></a>
       <a href="#"><i class="fa fa-twitter"> </i></a>
@@ -12,5 +20,4 @@
   </div>
   </div>
   <!-- Copyright -->
-
 </footer>

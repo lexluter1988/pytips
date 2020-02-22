@@ -35,6 +35,9 @@
             <li class="nav-item px-1">
                 <a href="{{ url_for('main.index') }}"><span class="fa fa-home fa-1x"></span></a>
             </li>
+            <li class="nav-item px1">
+                <a href="{{ url_for('support.create_ticket') }}">support </a>
+            </li>
            </ul>
            <ul class="navbar-nav ml-auto">
              <form class="form-inline" method="get" action="{{ url_for('tips.search') }}">
@@ -43,17 +46,6 @@
                  <i class="fa fa-search"></i>
                </button>
             </form>
-            <li class="nav-item px-1">
-                <a href="{{ url_for('main.language', lang='ru') }}">
-                    {{ _('ru') }}
-
-                </a>
-            </li>
-            <li class="nav-item px-1">
-                <a href="{{ url_for('main.language', lang='en') }}">
-                    {{ _('us') }}
-                </a>
-            </li>
            </ul>
         </nav>
         <hr>
@@ -85,6 +77,9 @@
                               <a class="nav-link" href="{{ url_for('messages.messages') }}"><i class="fa fa-file-text fa-2x p-2"></i>Messages</a>
                             </li>
                             <li class="nav-item">
+                              <a class="nav-link" href=""><i class="fa fa-file-text fa-2x p-2"></i>Support Issues</a>
+                            </li>
+                            <li class="nav-item">
                               <a class="nav-link" href="#"><i class="fa fa-gear fa-2x p-2"></i>Settings</a>
                             </li>
                             <li class="nav-item">
@@ -106,6 +101,5 @@
             </div>
         {% endblock %}
         </body>
-
 {% include 'main/footer.html' %}
 </html>

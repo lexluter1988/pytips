@@ -75,6 +75,9 @@ def create_app(config_class=Config):
     from app.subscriptions import bp as subscriptions_bp
     app.register_blueprint(subscriptions_bp)
 
+    from app.support import bp as support_bp
+    app.register_blueprint(support_bp)
+
     formatter = RequestFormatter(
         '[%(asctime)s] %(remote_addr)s requested %(url)s\n'
         '%(levelname)s in %(module)s: %(message)s'

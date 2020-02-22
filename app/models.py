@@ -60,6 +60,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     tips = db.relationship('Tip', backref='author', lazy='dynamic')
+    tickets = db.relationship('Ticket', backref='author', lazy='dynamic')
     followed = db.relationship('User', secondary=followers,
                                primaryjoin=(followers.c.follower_id == id),
                                secondaryjoin=(followers.c.followed_id == id),
@@ -210,3 +211,14 @@ class Stat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.Float, index=True, default=time)
     type = db.Column(db.Text)
+
+
+class Ticket(db.Model):
+    __tablename__ = 'tickets'
+    id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<Message {}>'.format(self.body)
