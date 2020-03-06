@@ -1,3 +1,4 @@
+from flask import flash
 from flask_babel import _
 from flask_babel import lazy_gettext as _l
 from flask_wtf import FlaskForm
@@ -23,16 +24,16 @@ class RegistrationForm(FlaskForm):
         _l('Repeat Password'), validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField(_l('Register'))
 
-    @staticmethod
-    def validate_username(username):
+    def validate_username(self, username):
         user = db.session.query(User).filter_by(username=username.data).first()
         if user is not None:
+            flash('Please use a different username.')
             raise ValidationError(_('Please use a different username.'))
 
-    @staticmethod
-    def validate_email(email):
+    def validate_email(self, email):
         user = db.session.query(User).filter_by(email=email.data).first()
         if user is not None:
+            flash('Please use a different email address.')
             raise ValidationError(_('Please use a different email address.'))
 
 

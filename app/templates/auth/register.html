@@ -1,26 +1,33 @@
 {% extends "main/base.html" %}
 
 {% block app_content %}
-    <h1>{{ _('Register') }}</h1>
-        <div class="col-md-4">
-            <form action="" method="post">
-                {{ form.hidden_tag() }}
-                {{ form.username.label }}<br>
-                {{ form.username }}<br>
-                {{ form.email.label }}<br>
-                {{ form.email }}<br>
-                {{ form.password.label }}<br>
-                {{ form.password }}<br>
-                {% for error in form.password.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-                {{ form.password2.label }}<br>
-                {{ form.password2 }}<br>
-                {% for error in form.password2.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-                <br>
-                {{ form.submit() }}
-            </form>
-        </div>
+    <h1>Register</h1>
+    <form action="" method="post">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" placeholder="Enter username" name="username" id="username" required>
+          <div class="valid-feedback">Valid</div>
+          <div class="invalid-feedback">Please fill out this field</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" class="form-control" placeholder="Enter email" name="email" id="email" required>
+          <div class="valid-feedback">Valid</div>
+          <div class="invalid-feedback">Please fill out this field</div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" placeholder="Enter password" name="password" id="password" required>
+        <div class="valid-feedback">Valid</div>
+        <div class="invalid-feedback">Please fill out this field</div>
+      </div>
+      <div class="form-group">
+        <label for="password2">Repeat Password:</label>
+        <input type="password" class="form-control" placeholder="Repeat password" name="password2" id="password2" required>
+        <div class="valid-feedback">Valid</div>
+        <div class="invalid-feedback">Please fill out this field</div>
+      </div>
+      <button type="submit" class="btn btn-primary" name="submit" id="submit">Sign in</button>
+    </form>
 {% endblock %}
