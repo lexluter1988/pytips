@@ -21,3 +21,11 @@ def create_ticket():
         flash(_('Thanks for contributing the issue. You ticket has been submitted!'))
         return redirect(url_for('tips.get_tip'))
     return render_template('support/new_ticket.html', title='Create new ticket', form=form)
+
+
+@bp.route('/support/tickets', methods=['GET'])
+@login_required
+@check_confirmed
+def tickets():
+    tickets = db.session.query(Ticket).all()
+    return render_template('support/tickets.html', title='Issues from users', tickets=tickets)

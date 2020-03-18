@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block app_content %}
+  <h3>{{ _('Tickets') }}</h3>
+     {% for ticket in tickets %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <small>{{ _('when:') }} {{ moment(ticket.timestamp).format('LLL') }}</small><br>
+                <small>{{ _('from:') }}  {{ ticket.author.username }}</small><br>
+                {{ ticket.body }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
