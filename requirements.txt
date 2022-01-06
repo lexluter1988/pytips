@@ -5,7 +5,7 @@ attrs==19.3.0
 Babel==2.7.0
 billiard==3.6.1.0
 blinker==1.4
-celery==4.3.0
+celery==5.2.2
 cffi==1.13.2
 Click==7.0
 dominate==2.4.0
